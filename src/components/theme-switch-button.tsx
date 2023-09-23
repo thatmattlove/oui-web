@@ -17,7 +17,7 @@ function useThemeSwitch() {
 
     const fill: string = isDark ? token("colors.amber.300") : "currentColor";
 
-    const iconText = isDark ? "Dark" : "Light";
+    const iconText = `Turn ${isDark ? "On" : "Off"} the Bright Lights`;
 
     return {
         isDark,
@@ -47,6 +47,7 @@ export function ThemeSwitchIconButton() {
         <IconButton
             w="6"
             h="8"
+            title={iconText}
             variant="ghost"
             className={switchStyle}
             onClick={toggleTheme}

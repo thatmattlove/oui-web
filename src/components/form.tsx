@@ -14,14 +14,22 @@ import { Search } from "~/icons/search";
 
 export const Form = (props: CardProps) => {
     return (
-        <Card width="sm" {...props}>
+        <Card
+            borderWidth={{ base: "0 ", md: "1px" }}
+            width={{ base: "100%", md: "sm" }}
+            height={{ base: "md", md: "unset" }}
+            justifyContent={{ base: "space-evenly", md: "unset" }}
+            {...props}
+        >
             <CardHeader alignItems="center" gap={2}>
                 <CardTitle fontFamily="mono" fontSize="3xl">
                     oui
                 </CardTitle>
-                <CardDescription fontSize="xs">MAC Address Vendor Lookup</CardDescription>
+                <CardDescription color="fg.subtle" fontSize="xs">
+                    MAC Address Vendor Lookup
+                </CardDescription>
             </CardHeader>
-            <CardContent gap="4">
+            <CardContent gap="4" flex={{ base: "0 0 0%", md: "unset" }}>
                 <Stack gap="1.5">
                     <Input
                         id="mac"
