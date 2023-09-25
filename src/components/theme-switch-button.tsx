@@ -2,6 +2,7 @@
 import { css } from "~/styled-system/css";
 import { token } from "~/styled-system/tokens";
 import { IconButton } from "~/elements/icon-button";
+import { Icon } from "~/elements/icon";
 import { useTheme } from "next-themes";
 import { LightBulb } from "~/icons/light-bulb";
 import { useMounted } from "~/hooks/use-mounted";
@@ -54,7 +55,9 @@ export function ThemeSwitchIconButton() {
             aria-label={iconText}
             _hover={{ bg: "bg.muted" }}
         >
-            <LightBulb style={{ fill }} w="0.8em" h="0.8em" outline={!isDark} />
+            <Icon>
+                <LightBulb style={{ fill }} outline={!isDark} />
+            </Icon>
         </IconButton>
     );
 }

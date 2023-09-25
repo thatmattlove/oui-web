@@ -3,5 +3,7 @@
 import { ThemeProvider } from "next-themes";
 
 export const Providers = (props: React.PropsWithChildren) => (
-    <ThemeProvider enableSystem enableColorScheme attribute="data-color-mode" {...props} />
+    <ThemeProvider enableSystem enableColorScheme attribute="data-color-mode">
+        {props.children}
+    </ThemeProvider>
 );

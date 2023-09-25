@@ -1,25 +1,73 @@
-import { defineConfig, defineSemanticTokens } from "@pandacss/dev";
+import { defineConfig } from "@pandacss/dev";
+import { kbd } from "~/recipes/kbd";
 
 export default defineConfig({
-    // Whether to use css reset
     preflight: true,
-
-    // Where to look for your css declarations
     include: ["./src/**/*.{js,jsx,ts,tsx}", "./pages/**/*.{js,jsx,ts,tsx}"],
-
-    // Files to exclude
     exclude: [],
     conditions: {
         light: "[data-color-mode=light] &",
         dark: "[data-color-mode=dark] &",
     },
-
-    // Useful for theme customization
     theme: {
-        // semanticTokens: {
-
-        // },
         extend: {
+            keyframes: {
+                spin: {
+                    "0%": {
+                        transform: "rotate(0deg)",
+                    },
+                    "100%": {
+                        transform: "rotate(360deg)",
+                    },
+                },
+            },
+            recipes: { kbd },
+            semanticTokens: {
+                colors: {
+                    green: {
+                        value: {
+                            _light: "{colors.emerald.600}",
+                            _dark: "{colors.emerald.300}",
+                        },
+                    },
+                    red: {
+                        value: {
+                            _light: "{colors.rose.600}",
+                            _dark: "{colors.rose.300}",
+                        },
+                    },
+                    slate: {
+                        value: {
+                            _light: "{colors.slate.600}",
+                            _dark: "{colors.slate.400}",
+                        },
+                    },
+                    "badge.accent": {
+                        value: {
+                            _light: "{colors.slate.100}",
+                            _dark: "{colors.slate.900}",
+                        },
+                    },
+                    "kbd-bg": {
+                        value: {
+                            _light: "{colors.slate.100}",
+                            _dark: "{colors.slate.900}",
+                        },
+                    },
+                    "kbd-fg": {
+                        value: {
+                            _light: "{colors.slate.600}",
+                            _dark: "{colors.slate.300}",
+                        },
+                    },
+                    "kbd-border": {
+                        value: {
+                            _light: "{colors.slate.200}",
+                            _dark: "{colors.slate.800}",
+                        },
+                    },
+                },
+            },
             tokens: {
                 fonts: {
                     mono: { value: "var(--font-mono), Melno, monospace" },
@@ -28,9 +76,6 @@ export default defineConfig({
         },
     },
     presets: ["@pandacss/dev/presets", "@park-ui/presets"],
-
     jsxFramework: "react",
-
-    // The output directory for your css system
     outdir: "./src/styled-system",
 });

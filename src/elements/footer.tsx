@@ -14,6 +14,6 @@ export const Footer = styled("footer", {
         py: { base: 1, md: 2 },
         px: { base: 6, sm: 8 },
         maxH: { base: 20, md: 12 },
-        justifyContent: "flex-end",
+        justifyContent: "space-between",
     },
 });

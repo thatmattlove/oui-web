@@ -1,13 +1,12 @@
 "use client";
 import { ark } from "@ark-ui/react";
-import type { ComponentPropsWithoutRef } from "react";
-import { styled } from "~/styled-system/jsx";
+import { styled, HTMLStyledProps } from "~/styled-system/jsx";
 import { card, type CardVariantProps } from "~/styled-system/recipes";
-import { createStyleContext } from "~/theme-utils/create-style-context";
+import { createStyleContext } from "~/utils/create-style-context";
 
 const { withProvider, withContext } = createStyleContext(card);
 
-export type CardProps = CardVariantProps & ComponentPropsWithoutRef<typeof ark.div>;
+export type CardProps = CardVariantProps & HTMLStyledProps<typeof ark.div>;
 
 const CardRoot = withProvider(styled(ark.div), "root");
 export const CardContent = withContext(styled(ark.div), "content");
