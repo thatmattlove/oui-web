@@ -9,14 +9,17 @@ import { Alert } from "~/elements/alert";
 import { WarningIcon } from "~/icons/warning";
 import { query } from "../../actions";
 import { cleanSearch } from "~/utils/cookies";
-
 import { isMultipleResult, isQueryError, isSingleResult, type QueryResponse } from "~/types/query";
-
-import type { NextPage } from "next";
+import type { Metadata, NextPage } from "next";
 
 interface ResultPageProps {
     params: { mac: string[] };
 }
+
+export const metadata: Metadata = {
+    title: "oui",
+    description: "MAC Address Vendor Lookup",
+};
 
 const Lead = styled("div", {
     base: {

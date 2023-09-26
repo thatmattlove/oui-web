@@ -1,16 +1,7 @@
-import { styled } from "~/styled-system/jsx";
+import { ark } from "@ark-ui/react";
+import { spinner } from "~/styled-system/recipes/spinner";
+import { styled, type HTMLStyledProps } from "~/styled-system/jsx";
 
-export const Spinner = styled("div", {
-    base: {
-        display: "inline-block",
-        borderColor: "currentColor",
-        borderStyle: "solid",
-        borderRadius: "99999px",
-        borderWidth: "2px",
-        borderBottomColor: "transparent",
-        borderLeftColor: "transparent",
-        animation: `spin 0.45s linear infinite`,
-        height: "4",
-        width: "4",
-    },
-});
+export type SpinnerProps = HTMLStyledProps<"div">;
+
+export const Spinner = styled(ark.div, spinner);

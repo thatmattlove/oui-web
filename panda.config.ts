@@ -1,5 +1,8 @@
 import { defineConfig } from "@pandacss/dev";
 import { kbd } from "~/recipes/kbd";
+import { footer } from "~/recipes/footer";
+import { main } from "~/recipes/main";
+import { spinner } from "~/recipes/spinner";
 
 export default defineConfig({
     preflight: true,
@@ -21,7 +24,7 @@ export default defineConfig({
                     },
                 },
             },
-            recipes: { kbd },
+            recipes: { kbd, footer, main, spinner },
             semanticTokens: {
                 colors: {
                     green: {

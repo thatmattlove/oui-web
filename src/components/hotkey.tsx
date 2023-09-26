@@ -1,21 +1,19 @@
-"use client";
-import { useMemo } from "react";
+import { headers } from "next/headers";
 import { styled, Stack } from "~/styled-system/jsx";
 import { Kbd } from "~/elements/kbd";
 import { Search } from "~/icons/search";
 import { Icon } from "~/elements/icon";
 
+function getChar(): string {
+    const userAgent = headers().get("user-agent");
+    if (userAgent?.includes("Mac")) {
+        return "⌘";
+    }
+    return "ctrl";
+}
+
 export const HotKey = () => {
-    const char = useMemo(() => {
-        if (typeof window === "undefined") {
-            return "⊞";
-        }
-        const { userAgent } = navigator;
-        if (userAgent.search("Mac")) {
-            return "";
-        }
-        return "⊞";
-    }, []);
+    const char = getChar();
     return (
         <Stack
             gap="1.5"
@@ -24,7 +22,7 @@ export const HotKey = () => {
             justifyContent="flex-end"
             display={{ base: "none", md: "flex" }}
         >
-            <Kbd>{char}</Kbd>
+            <Kbd fontFamily={char === "ctrl" ? "mono" : undefined}>{char}</Kbd>
             <styled.span color="kbd-fg" fontSize="sm">
                 +
             </styled.span>

@@ -1,6 +1,5 @@
 "use client";
 import { css } from "~/styled-system/css";
-import { token } from "~/styled-system/tokens";
 import { IconButton } from "~/elements/icon-button";
 import { Icon } from "~/elements/icon";
 import { useTheme } from "next-themes";
@@ -16,14 +15,10 @@ function useThemeSwitch() {
 
     const toggleTheme = () => setTheme(isDark ? "light" : "dark");
 
-    const fill: string = isDark ? token("colors.amber.300") : "currentColor";
-
     const iconText = `Turn ${isDark ? "On" : "Off"} the Bright Lights`;
 
     return {
         isDark,
-        fill,
-        mounted,
         iconText,
         toggleTheme,
     };
@@ -42,21 +37,23 @@ const switchStyle = css({
 });
 
 export function ThemeSwitchIconButton() {
-    const { fill, iconText, toggleTheme, mounted, isDark } = useThemeSwitch();
+    const { iconText, toggleTheme, isDark } = useThemeSwitch();
 
     return (
         <IconButton
             w="6"
             h="8"
-            title={iconText}
             variant="ghost"
-            className={switchStyle}
+            title={iconText}
+            color="slate.600"
             onClick={toggleTheme}
             aria-label={iconText}
+            className={switchStyle}
             _hover={{ bg: "bg.muted" }}
+            _dark={{ color: "slate.400" }}
         >
             <Icon>
-                <LightBulb style={{ fill }} outline={!isDark} />
+                <LightBulb outline={!isDark} />
             </Icon>
         </IconButton>
     );
