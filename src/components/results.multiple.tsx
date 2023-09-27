@@ -6,6 +6,7 @@ import {
     TableHead,
     TableHeader,
     TableRow,
+    TableArrow,
     TableContainer,
     type TableProps,
 } from "~/elements/table";
@@ -84,6 +85,7 @@ export const ResultsMultiple = (props: ResultsProps) => {
                     </Table>
                 </TableContainer>
             )}
+            <TableArrow />
         </Stack>
     );
 };

@@ -1,8 +1,15 @@
-import { Button, ButtonLink, type ButtonLinkProps, type ButtonProps } from "./button";
+import NextLink, { type LinkProps } from "next/link";
+import { ark } from "@ark-ui/react";
+import { styled, type HTMLStyledProps } from "~/styled-system/jsx";
+import { iconButton, type IconButtonVariantProps } from "~/styled-system/recipes";
 
-export type IconButtonProps = ButtonProps & { "aria-label": string };
-export type IconButtonLinkProps = ButtonLinkProps & { "aria-label": string };
+export type IconButtonProps = IconButtonVariantProps &
+    HTMLStyledProps<typeof ark.button> & { "aria-label": string };
 
-export const IconButton = (props: IconButtonProps) => <Button px="0" {...props} />;
+export type IconButtonLinkProps = LinkProps &
+    IconButtonVariantProps &
+    HTMLStyledProps<typeof NextLink> & { "aria-label": string };
 
-export const IconButtonLink = (props: IconButtonLinkProps) => <ButtonLink px="0" {...props} />;
+export const IconButton = styled(ark.button, iconButton);
+
+export const IconButtonLink = styled(NextLink, iconButton);

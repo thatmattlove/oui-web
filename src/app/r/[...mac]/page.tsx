@@ -21,7 +21,7 @@ export function generateMetadata(props: ResultPageProps) {
     const {
         params: { mac },
     } = props;
-    const isValid = mac.every((m) => m.length < 6);
+    const isValid = mac.every((m) => m.length >= 6);
     const title = isValid ? `oui results for ${mac.length} addresses` : "oui results";
     const metadata: Metadata = {
         title,
@@ -64,7 +64,8 @@ const Page: NextPage<ResultPageProps> = async (props) => {
     const {
         params: { mac },
     } = props;
-    const isValid = mac.every((m) => m.length < 6);
+
+    const isValid = mac.every((m) => m.length >= 6);
     if (!isValid) {
         return (
             <ExpectedError title="Invalid Search" message="At least 6 characters are required." />

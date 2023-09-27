@@ -7,6 +7,7 @@ import {
     TableHeader,
     TableRow,
     TableContainer,
+    TableArrow,
     type TableProps,
 } from "~/elements/table";
 import { useSearch } from "~/hooks/use-search";
@@ -79,6 +80,7 @@ export const ResultsSingle = (props: ResultsProps) => {
                     </TableBody>
                 </Table>
             </TableContainer>
+            <TableArrow />
         </Stack>
     );
 };

@@ -3,6 +3,8 @@ import { ark } from "@ark-ui/react";
 import { styled, HTMLStyledProps } from "~/styled-system/jsx";
 import { table, type TableVariantProps } from "~/styled-system/recipes";
 import { createStyleContext } from "~/utils/create-style-context";
+import { RightArrow } from "~/icons/right-arrow";
+import { Icon } from "./icon";
 
 const { withProvider, withContext } = createStyleContext(table);
 
@@ -31,3 +33,17 @@ export const Table = Object.assign(TableRoot, {
     Header: TableHeader,
     Row: TableRow,
 });
+
+export const TableArrow = (props: HTMLStyledProps<"div">) => (
+    <styled.div
+        display={{ base: "flex", md: "none" }}
+        justifyContent="flex-end"
+        w="100%"
+        opacity={0.5}
+        {...props}
+    >
+        <Icon size="sm">
+            <RightArrow />
+        </Icon>
+    </styled.div>
+);

@@ -13,6 +13,20 @@ import {
 } from "~/elements/card";
 import { Textarea } from "~/elements/textarea";
 import { SubmitButton } from "~/components/submit-button";
+import { IconButton } from "~/elements/icon-button";
+import { ClipboardPlus } from "~/icons/clipboard-plus";
+import { Icon } from "~/elements/icon";
+import { InputGroup } from "~/elements/input-group";
+import { useInputValue } from "~/hooks/use-input-value";
+import { Portal } from "@ark-ui/react";
+import {
+    Tooltip,
+    TooltipArrow,
+    TooltipArrowTip,
+    TooltipContent,
+    TooltipPositioner,
+    TooltipTrigger,
+} from "~/elements/tooltip";
 
 export type FormProps = CardProps & { action: (args: FormData) => Promise<void> };
 
@@ -26,6 +40,7 @@ export const Form = (props: FormProps) => {
         },
         { enableOnFormTags: true }
     );
+    const { value, setValue, readFromClipboard, isSupported } = useInputValue();
     return (
         <Card
             borderWidth={{ base: "0 ", md: "1px" }}
@@ -44,23 +59,58 @@ export const Form = (props: FormProps) => {
                     </CardDescription>
                 </CardHeader>
                 <CardContent gap="4" flex={{ base: "0 0 0%", md: "unset" }}>
-                    <Stack gap="1.5">
+                    <Stack>
                         {children}
-                        <Textarea
-                            rows={1}
-                            required
-                            size="lg"
-                            name="mac"
-                            paddingY={4}
-                            minLength={6}
-                            resize="none"
-                            fontFamily="mono"
-                            scrollbar="hidden"
-                            textAlign="center"
-                            aria-label="MAC Address"
-                            autoComplete="new-password"
-                            placeholder="00:53:00:00:b3:3f"
-                        />
+                        <InputGroup size="lg">
+                            <Textarea
+                                rows={1}
+                                required
+                                size="lg"
+                                name="mac"
+                                minLength={6}
+                                resize="none"
+                                value={value}
+                                fontFamily="mono"
+                                scrollbar="hidden"
+                                textAlign="center"
+                                aria-label="MAC Address"
+                                autoComplete="new-password"
+                                placeholder="00:53:00:00:b3:3f"
+                                onChange={(e) => setValue(e.currentTarget.value)}
+                            />
+                            <Tooltip
+                                positioning={{ placement: "right" }}
+                                openDelay={0}
+                                closeDelay={0}
+                            >
+                                <TooltipTrigger asChild>
+                                    <IconButton
+                                        disabled={!isSupported}
+                                        _disabled={{ borderColor: "border.emphasized" }}
+                                        size="lg"
+                                        variant="outline"
+                                        onClick={readFromClipboard}
+                                        aria-label="Paste From Clipboard"
+                                    >
+                                        <Icon>
+                                            <ClipboardPlus />
+                                        </Icon>
+                                    </IconButton>
+                                </TooltipTrigger>
+                                <Portal>
+                                    <TooltipPositioner>
+                                        <TooltipContent bg="kbd-bg" color="kbd-fg">
+                                            <TooltipArrow>
+                                                <TooltipArrowTip />
+                                            </TooltipArrow>
+                                            {isSupported
+                                                ? "Paste From Clipboard"
+                                                : "Clipboard Inaccessible"}
+                                        </TooltipContent>
+                                    </TooltipPositioner>
+                                </Portal>
+                            </Tooltip>
+                        </InputGroup>
                     </Stack>
                 </CardContent>
                 <CardFooter justifyContent="center" gap="3">

@@ -31,7 +31,7 @@ export const metadata: Metadata = {
 const Body = styled("body", {
     base: {
         w: "100vw",
-        h: "100vh",
+        h: { base: "calc(100vh - var(--sizes-20))", md: "calc(100vh - var(--sizes-12))" },
         "& *::selection": {
             _dark: {
                 bg: "slate.700",
@@ -69,7 +69,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <Providers>
                     <Main>
                         {children}
-                        <Footer justifyContent={{ base: "flex-end", md: "space-between" }}>
+                        <Footer>
                             <GitHubLink />
                             <ThemeSwitchIconButton />
                             <HotKey />
