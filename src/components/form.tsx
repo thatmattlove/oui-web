@@ -43,9 +43,9 @@ export const Form = (props: FormProps) => {
     const { value, setValue, readFromClipboard, isSupported } = useInputValue();
     return (
         <Card
-            borderWidth={{ base: "0 ", md: "1px" }}
             width={{ base: "100%", md: "sm" }}
             height={{ base: "md", md: "unset" }}
+            borderWidth={{ base: "0 ", md: "1px" }}
             justifyContent={{ base: "space-evenly", md: "unset" }}
             {...rest}
         >
@@ -76,7 +76,7 @@ export const Form = (props: FormProps) => {
                                 aria-label="MAC Address"
                                 autoComplete="new-password"
                                 placeholder="00:53:00:00:b3:3f"
-                                onChange={(e) => setValue(e.currentTarget.value)}
+                                onInput={(e) => setValue(e.currentTarget.value)}
                             />
                             <Tooltip
                                 positioning={{ placement: "right" }}
@@ -89,8 +89,12 @@ export const Form = (props: FormProps) => {
                                         _disabled={{ borderColor: "border.emphasized" }}
                                         size="lg"
                                         variant="outline"
-                                        onClick={readFromClipboard}
-                                        aria-label="Paste From Clipboard"
+                                        onClick={() => readFromClipboard()}
+                                        aria-label={
+                                            isSupported
+                                                ? "Paste From Clipboard"
+                                                : "Clipboard Inaccessible"
+                                        }
                                     >
                                         <Icon>
                                             <ClipboardPlus />

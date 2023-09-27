@@ -10,10 +10,13 @@ export function useInputValue() {
     }, []);
 
     useEffect(() => {
-        setSupported(
-            typeof navigator !== "undefined" && typeof navigator.clipboard !== "undefined"
-        );
-    }, []);
+        const supported =
+            typeof navigator !== "undefined" && typeof navigator.clipboard !== "undefined";
+
+        if (supported !== isSupported) {
+            setSupported(supported);
+        }
+    }, [isSupported, setSupported]);
 
     return { value, setValue, isSupported, readFromClipboard };
 }
