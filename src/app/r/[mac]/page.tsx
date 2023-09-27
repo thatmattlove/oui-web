@@ -1,16 +1,17 @@
 import qs from "query-string";
 import { styled, Stack } from "~/styled-system/jsx";
+import { ExpectedError } from "~/components/expected-error";
 import { Form } from "~/components/form";
 import { ResultsSingle } from "~/components/results.single";
 import { ResultsMultiple } from "~/components/results.multiple";
-import { ExpectedError } from "~/components/expected-error";
+import { Alert } from "~/elements/alert";
 import { Divider } from "~/elements/divider";
 import { Icon } from "~/elements/icon";
-import { Alert } from "~/elements/alert";
 import { WarningIcon } from "~/icons/warning";
-import { query } from "../../actions";
-import { cleanSearch } from "~/utils/cookies";
 import { isMultipleResult, isQueryError, isSingleResult, type QueryResponse } from "~/types/query";
+import { cleanSearch } from "~/utils/cookies";
+
+import { query } from "../../actions";
 
 import type { Metadata, NextPage } from "next";
 
