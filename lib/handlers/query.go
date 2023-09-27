@@ -8,6 +8,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/rs/zerolog"
 	"github.com/thatmattlove/go-macaddr"
+	"github.com/thatmattlove/oui-web/lib"
 	"github.com/thatmattlove/oui-web/lib/interfaces"
 	"github.com/thatmattlove/oui/v2/oui"
 )
@@ -16,6 +17,7 @@ type QueryResponse struct {
 	Org              string `json:"org"`
 	Prefix           string `json:"prefix"`
 	Registry         string `json:"registry"`
+	RegistryURL      string `json:"registryUrl"`
 	PrefixLength     int    `json:"prefixLength"`
 	PrefixRange      string `json:"prefixRange"`
 	PrefixRangeStart string `json:"prefixRangeStart"`
@@ -37,10 +39,12 @@ func buildSingleResponse(matches []*oui.VendorDef) ([]QueryResponse, error) {
 		start := strings.Trim(strings.ReplaceAll(firstMac.String(), oui, ""), ":")
 		stop := strings.Trim(strings.ReplaceAll(lastMac.String(), oui, ""), ":")
 		prefixRange := fmt.Sprintf("%s-%s", firstMac.String(), lastMac.String())
+		registryURL := lib.RegistryURLMap[match.Registry]
 		result := QueryResponse{
 			Org:              match.Org,
 			Prefix:           match.Prefix,
 			Registry:         match.Registry,
+			RegistryURL:      registryURL,
 			PrefixLength:     match.Length,
 			PrefixRange:      prefixRange,
 			PrefixRangeStart: start,

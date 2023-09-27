@@ -10,7 +10,7 @@ import {
     type TableProps,
 } from "~/elements/table";
 import { useSearch } from "~/hooks/use-search";
-import { Badge } from "~/elements/badge";
+import { Badge, BadgeLink } from "~/elements/badge";
 
 import type { SingleQueryResult, SingleQueryResults } from "~/types/query";
 
@@ -65,7 +65,14 @@ export const ResultsSingle = (props: ResultsProps) => {
                                     />
                                 </TableCell>
                                 <TableCell>
-                                    <Badge>{result.registry}</Badge>
+                                    <BadgeLink
+                                        target="_blank"
+                                        href={result.registryUrl}
+                                        _hover={{ scale: "110%" }}
+                                        transition="scale 50ms ease-in-out"
+                                    >
+                                        {result.registry}
+                                    </BadgeLink>
                                 </TableCell>
                             </TableRow>
                         ))}

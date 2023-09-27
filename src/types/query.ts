@@ -4,6 +4,7 @@ export interface SingleQueryResult {
     org: string;
     prefix: string;
     registry: string;
+    registryUrl: string;
     prefixLength: number;
     prefixRange: string;
     prefixRangeStart: string;
