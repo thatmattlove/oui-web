@@ -14,16 +14,32 @@ import { cleanSearch } from "~/utils/cookies";
 import { query } from "../../actions";
 
 import type { Metadata, NextPage } from "next";
+import { formatMacAddress } from "~/utils/format-mac";
 
 export interface ResultPageProps {
     params: { mac: string };
 }
 
-export const metadata: Metadata = {
-    title: "oui",
-    description: "MAC Address Vendor Lookup",
-    metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL!),
-};
+export function generateMetadata(props: ResultPageProps) {
+    const {
+        params: { mac },
+    } = props;
+    const isValid = mac.length < 6;
+    const title = isValid ? `oui results for ${formatMacAddress(mac)}` : "oui results";
+    const metadata: Metadata = {
+        title,
+        description: "MAC Address Vendor Lookup",
+        metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL!),
+        openGraph: {
+            title,
+            description: "MAC Address Vendor Lookup",
+            siteName: "oui",
+            type: "website",
+            url: process.env.NEXT_PUBLIC_BASE_URL,
+        },
+    };
+    return metadata;
+}
 
 const Lead = styled("div", {
     base: {

@@ -19,6 +19,13 @@ export const metadata: Metadata = {
     title: "oui",
     description: "MAC Address Vendor Lookup",
     metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL!),
+    openGraph: {
+        title: "oui",
+        description: "MAC Address Vendor Lookup",
+        siteName: "oui",
+        type: "website",
+        url: process.env.NEXT_PUBLIC_BASE_URL,
+    },
 };
 
 const Body = styled("body", {
