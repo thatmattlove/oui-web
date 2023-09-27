@@ -10,11 +10,11 @@ import { Icon } from "~/elements/icon";
 import { WarningIcon } from "~/icons/warning";
 import { isMultipleResult, isQueryError, isSingleResult, type QueryResponse } from "~/types/query";
 import { cleanSearch } from "~/utils/cookies";
+import { formatMacAddress } from "~/utils/format-mac";
 
 import { query } from "../../actions";
 
 import type { Metadata, NextPage } from "next";
-import { formatMacAddress } from "~/utils/format-mac";
 
 export interface ResultPageProps {
     params: { mac: string };

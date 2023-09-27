@@ -17,18 +17,26 @@ export interface ResultPageProps {
     params: { mac: string[] };
 }
 
-export const metadata: Metadata = {
-    title: "oui",
-    description: "MAC Address Vendor Lookup",
-    metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL!),
-    openGraph: {
-        title: "oui results",
+export function generateMetadata(props: ResultPageProps) {
+    const {
+        params: { mac },
+    } = props;
+    const isValid = mac.every((m) => m.length < 6);
+    const title = isValid ? `oui results for ${mac.length} addresses` : "oui results";
+    const metadata: Metadata = {
+        title,
         description: "MAC Address Vendor Lookup",
-        siteName: "oui",
-        type: "website",
-        url: process.env.NEXT_PUBLIC_BASE_URL,
-    },
-};
+        metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL!),
+        openGraph: {
+            title,
+            description: "MAC Address Vendor Lookup",
+            siteName: "oui",
+            type: "website",
+            url: process.env.NEXT_PUBLIC_BASE_URL,
+        },
+    };
+    return metadata;
+}
 
 const Lead = styled("div", {
     base: {
@@ -56,15 +64,11 @@ const Page: NextPage<ResultPageProps> = async (props) => {
     const {
         params: { mac },
     } = props;
-    for (const search of mac) {
-        if (search.length < 6) {
-            return (
-                <ExpectedError
-                    title="Invalid Search"
-                    message="At least 6 characters are required."
-                />
-            );
-        }
+    const isValid = mac.every((m) => m.length < 6);
+    if (!isValid) {
+        return (
+            <ExpectedError title="Invalid Search" message="At least 6 characters are required." />
+        );
     }
 
     const results = await getData(mac);
