@@ -6,7 +6,7 @@ require (
 	github.com/gofiber/fiber/v2 v2.49.2
 	github.com/rs/zerolog v1.30.0
 	github.com/thatmattlove/go-macaddr v0.1.0
-	github.com/thatmattlove/oui/v2 v2.0.2
+	github.com/thatmattlove/oui/v2 v2.0.3
 )
 
 require (

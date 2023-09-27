@@ -72,8 +72,8 @@ github.com/stretchr/testify v1.7.0 h1:nwc3DEeHmmLAfoZucVR881uASk0Mfjw8xYJ99tb5Cc
 github.com/stretchr/testify v1.7.0/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/h/Wwjteg=
 github.com/thatmattlove/go-macaddr v0.1.0 h1:3IcXNZFxsUtNqUwpEweRVdZRUx58A+cXKxJgJ/g/Cd8=
 github.com/thatmattlove/go-macaddr v0.1.0/go.mod h1:8kuuDZGjrKKv3KXckpLHEOWWfbRJ88hZ2p3u+FDUVcQ=
-github.com/thatmattlove/oui/v2 v2.0.2 h1:qh5sZ0gdmeTZzVTIpLPgw96+h1ErPuEZn9jajfIVaIs=
-github.com/thatmattlove/oui/v2 v2.0.2/go.mod h1:+oeEtxIWH7/yWUjiiYZnFoIwT/OVw+fIZowXdR9iTNg=
+github.com/thatmattlove/oui/v2 v2.0.3 h1:aC/F7mvHQODGKH4rlrollyiVqfOCYlt9m+glAhEN19U=
+github.com/thatmattlove/oui/v2 v2.0.3/go.mod h1:+oeEtxIWH7/yWUjiiYZnFoIwT/OVw+fIZowXdR9iTNg=
 github.com/tinylib/msgp v1.1.8 h1:FCXC1xanKO4I8plpHGH2P7koL/RzZs12l/+r7vakfm0=
 github.com/tinylib/msgp v1.1.8/go.mod h1:qkpG+2ldGg4xRFmx+jfTvZPxfGFhi64BcnL9vkCm/Tw=
 github.com/valyala/bytebufferpool v1.0.0 h1:GqA5TC/0021Y/b9FG4Oi9Mr3q7XYx6KllzawFIhcdPw=

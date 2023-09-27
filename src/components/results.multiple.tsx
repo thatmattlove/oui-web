@@ -11,8 +11,8 @@ import {
     type TableProps,
 } from "~/elements/table";
 import { Icon } from "~/elements/icon";
-import { Alert } from "~/elements/alert";
-import { Badge } from "~/elements/badge";
+import { Alert } from "~/components/alert";
+import { Badge, BadgeLink } from "~/elements/badge";
 import { WarningIcon } from "~/icons/warning";
 
 import type { SingleQueryResult, MultipleQueryResults } from "~/types/query";
@@ -37,16 +37,7 @@ export const ResultsMultiple = (props: ResultsProps) => {
     return (
         <Stack alignItems="center">
             {Object.keys(results).length === 0 ? (
-                <Alert width={{ base: "100%", md: "lg" }} bg="red">
-                    <Stack gap="4" direction={{ base: "column", sm: "row" }}>
-                        <Icon fill="red">
-                            <WarningIcon />
-                        </Icon>
-                        <Stack gap="1">
-                            <styled.h5 fontWeight="medium">No Results Found</styled.h5>
-                        </Stack>
-                    </Stack>
-                </Alert>
+                <Alert title="No Results Found" />
             ) : (
                 <TableContainer>
                     <Table {...rest}>
@@ -77,7 +68,14 @@ export const ResultsMultiple = (props: ResultsProps) => {
                                         />
                                     </TableCell>
                                     <TableCell>
-                                        <Badge>{def.registry}</Badge>
+                                        <BadgeLink
+                                            target="_blank"
+                                            href={def.registryUrl}
+                                            _hover={{ scale: "110%" }}
+                                            transition="scale 50ms ease-in-out"
+                                        >
+                                            {def.registry}
+                                        </BadgeLink>
                                     </TableCell>
                                 </TableRow>
                             ))}

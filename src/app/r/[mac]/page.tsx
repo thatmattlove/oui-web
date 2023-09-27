@@ -1,13 +1,11 @@
 import qs from "query-string";
-import { styled, Stack } from "~/styled-system/jsx";
+import { styled } from "~/styled-system/jsx";
 import { ExpectedError } from "~/components/expected-error";
 import { Form } from "~/components/form";
 import { ResultsSingle } from "~/components/results.single";
 import { ResultsMultiple } from "~/components/results.multiple";
-import { Alert } from "~/elements/alert";
+import { Alert } from "~/components/alert";
 import { Divider } from "~/elements/divider";
-import { Icon } from "~/elements/icon";
-import { WarningIcon } from "~/icons/warning";
 import { isMultipleResult, isQueryError, isSingleResult, type QueryResponse } from "~/types/query";
 import { cleanSearch } from "~/utils/cookies";
 import { formatMacAddress } from "~/utils/format-mac";
@@ -43,7 +41,6 @@ export function generateMetadata(props: ResultPageProps) {
 
 const Lead = styled("div", {
     base: {
-        textAlign: "center",
         textTransform: "uppercase",
         fontSize: "xs",
         color: "fg.muted",
@@ -78,34 +75,17 @@ const Page: NextPage<ResultPageProps> = async (props) => {
     return (
         <Form action={query} width={{ base: "100%", md: "fit-content" }}>
             {isQueryError(results) ? (
-                <Alert width={{ base: "100%", md: "lg" }} bg="red">
-                    <Stack gap="4" direction={{ base: "column", sm: "row" }}>
-                        <Icon>
-                            <WarningIcon />
-                        </Icon>
-                        <Stack gap="1">
-                            <styled.h5 fontWeight="medium">Error</styled.h5>
-                            <styled.p>{results.error}</styled.p>
-                        </Stack>
-                    </Stack>
-                </Alert>
+                <ExpectedError title="Error" message={results.error} hideBackButton />
             ) : isSingleResult(results) ? (
                 <ResultsSingle search={mac} results={results} />
             ) : isMultipleResult(results) ? (
                 <ResultsMultiple results={results} />
             ) : (
-                <Alert width={{ base: "100%", md: "lg" }} bg="badge.accent">
-                    <Stack gap="4" direction={{ base: "column", sm: "row" }}>
-                        <Icon>
-                            <WarningIcon />
-                        </Icon>
-                        <styled.h5 fontWeight="medium">No Results Found</styled.h5>
-                    </Stack>
-                </Alert>
+                <Alert title="No Results Found" />
             )}
 
             <Divider mx="-6" />
-            <Lead mb="2">Search Again</Lead>
+            <Lead>Search Again</Lead>
         </Form>
     );
 };
