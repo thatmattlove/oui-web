@@ -3,18 +3,19 @@ import { styled, Stack } from "~/styled-system/jsx";
 import { Form } from "~/components/form";
 import { ResultsSingle } from "~/components/results.single";
 import { ResultsMultiple } from "~/components/results.multiple";
+import { ExpectedError } from "~/components/expected-error";
 import { Divider } from "~/elements/divider";
 import { Icon } from "~/elements/icon";
 import { Alert } from "~/elements/alert";
-import { ExpectedError } from "~/components/expected-error";
 import { WarningIcon } from "~/icons/warning";
 import { query } from "../../actions";
 import { cleanSearch } from "~/utils/cookies";
 import { isMultipleResult, isQueryError, isSingleResult, type QueryResponse } from "~/types/query";
+
 import type { Metadata, NextPage } from "next";
 
 export interface ResultPageProps {
-    params: { mac: string[] };
+    params: { mac: string };
 }
 
 export const metadata: Metadata = {
@@ -32,9 +33,8 @@ const Lead = styled("div", {
     },
 });
 
-async function getData(search: string[]): Promise<QueryResponse> {
-    const clean = search.map(cleanSearch);
-    const m = clean.join(",");
+async function getData(search: string): Promise<QueryResponse> {
+    const m = cleanSearch(search);
     const url = qs.stringifyUrl({ url: `${process.env.BASE_URL}/api/query`, query: { m } });
     const res = await fetch(url);
     const results = await res.json();
@@ -45,18 +45,15 @@ const Page: NextPage<ResultPageProps> = async (props) => {
     const {
         params: { mac },
     } = props;
-    for (const search of mac) {
-        if (search.length < 6) {
-            return (
-                <ExpectedError
-                    title="Invalid Search"
-                    message="At least 6 characters are required."
-                />
-            );
-        }
+
+    if (mac.length < 6) {
+        return (
+            <ExpectedError title="Invalid Search" message="At least 6 characters are required." />
+        );
     }
 
     const results = await getData(mac);
+
     return (
         <Form action={query} width={{ base: "100%", md: "fit-content" }}>
             {isQueryError(results) ? (
@@ -72,7 +69,7 @@ const Page: NextPage<ResultPageProps> = async (props) => {
                     </Stack>
                 </Alert>
             ) : isSingleResult(results) ? (
-                <ResultsSingle search={mac[0]} results={results} />
+                <ResultsSingle search={mac} results={results} />
             ) : isMultipleResult(results) ? (
                 <ResultsMultiple results={results} />
             ) : (

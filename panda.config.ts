@@ -69,6 +69,30 @@ export default defineConfig({
                             _dark: "{colors.slate.800}",
                         },
                     },
+                    "alert-bg": {
+                        value: {
+                            _light: "{colors.rose.600}",
+                            _dark: "{colors.rose.500}",
+                        },
+                    },
+                    "alert-fg": {
+                        value: {
+                            _light: "{colors.rose.50}",
+                            _dark: "{colors.rose.950}",
+                        },
+                    },
+                    "alert-border": {
+                        value: {
+                            _light: "{colors.rose.700}",
+                            _dark: "{colors.rose.400}",
+                        },
+                    },
+                    "alert-accent": {
+                        value: {
+                            _light: "{colors.rose.200}",
+                            _dark: "{colors.rose.950}",
+                        },
+                    },
                 },
             },
             tokens: {

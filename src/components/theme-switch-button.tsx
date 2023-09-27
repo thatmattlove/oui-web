@@ -50,7 +50,7 @@ export function ThemeSwitchIconButton() {
             aria-label={iconText}
             className={switchStyle}
             _hover={{ bg: "bg.muted" }}
-            _dark={{ color: "slate.400" }}
+            _dark={{ color: "slate.300" }}
         >
             <Icon>
                 <LightBulb outline={!isDark} />

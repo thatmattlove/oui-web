@@ -18,6 +18,7 @@ export const HotKey = () => {
         <Stack
             gap="1.5"
             flexDir="row"
+            userSelect="none"
             alignItems="center"
             justifyContent="flex-end"
             display={{ base: "none", md: "flex" }}

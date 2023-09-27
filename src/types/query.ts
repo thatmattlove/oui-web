@@ -33,7 +33,7 @@ export function isSingleResult(res: unknown): res is SingleQueryResults {
 }
 
 export function isMultipleResult(obj: unknown): obj is MultipleQueryResults {
-    if (typeof obj === "object" && obj !== null) {
+    if (!Array.isArray(obj) && typeof obj === "object" && obj !== null) {
         for (const value of Object.values(obj)) {
             return isSingleQueryResult(value);
         }
@@ -42,5 +42,5 @@ export function isMultipleResult(obj: unknown): obj is MultipleQueryResults {
 }
 
 export function isQueryError(res: unknown): res is QueryError {
-    return typeof res === "object" && res !== null && "error" in res;
+    return !Array.isArray(res) && typeof res === "object" && res !== null && "error" in res;
 }
