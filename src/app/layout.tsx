@@ -18,6 +18,7 @@ const firaCode = Fira_Code({ subsets: ["latin"], display: "swap", variable: "--f
 export const metadata: Metadata = {
     title: "oui",
     description: "MAC Address Vendor Lookup",
+    metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL!),
 };
 
 const Body = styled("body", {

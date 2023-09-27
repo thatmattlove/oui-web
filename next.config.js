@@ -14,7 +14,7 @@ const nextConfig = {
         serverActions: true,
     },
     env: {
-        BASE_URL: getBaseURL(),
+        NEXT_PUBLIC_BASE_URL: getBaseURL(),
     },
 };
 

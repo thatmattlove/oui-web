@@ -20,6 +20,7 @@ export interface ResultPageProps {
 export const metadata: Metadata = {
     title: "oui",
     description: "MAC Address Vendor Lookup",
+    metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL!),
 };
 
 const Lead = styled("div", {
@@ -35,7 +36,10 @@ const Lead = styled("div", {
 async function getData(search: string[]): Promise<QueryResponse> {
     const clean = search.map(cleanSearch);
     const m = clean.join(",");
-    const url = qs.stringifyUrl({ url: `${process.env.BASE_URL}/api/query`, query: { m } });
+    const url = qs.stringifyUrl({
+        url: `${process.env.NEXT_PUBLIC_BASE_URL}/api/query`,
+        query: { m },
+    });
     const res = await fetch(url);
     const results = await res.json();
     return results as QueryResponse;

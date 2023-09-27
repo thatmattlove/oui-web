@@ -16,7 +16,7 @@ export const contentType = "image/png";
 
 async function getMAC(mac: string): Promise<string> {
     try {
-        const res = await fetch(`${process.env.BASE_URL}/api/query?m=${mac}`);
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/query?m=${mac}`);
         const data = (await res.json()) as SingleQueryResults | QueryError;
         if (isQueryError(data)) {
             return "";
