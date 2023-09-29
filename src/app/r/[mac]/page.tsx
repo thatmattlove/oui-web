@@ -40,8 +40,6 @@ export function generateMetadata(props: ResultPageProps) {
     return metadata;
 }
 
-export const preload = () => {};
-
 const Lead = styled("div", {
     base: {
         textTransform: "uppercase",
