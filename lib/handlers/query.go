@@ -68,8 +68,8 @@ func Query(ctx *fiber.Ctx) error {
 	}
 	queries := strings.Split(query, ",")
 	for _, q := range queries {
-		if len(q) > 16 {
-			return ctx.Status(400).JSON(fiber.Map{"error": "EUI-64 is the maximum supported address length."})
+		if len(q) > 24 {
+			return ctx.Status(400).JSON(fiber.Map{"error": fmt.Sprintf("EUI-64 is the maximum supported address length (%s).", q)})
 		}
 	}
 	oui, err := interfaces.NewOUI(ctx)

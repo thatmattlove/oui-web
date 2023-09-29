@@ -15,7 +15,7 @@ export async function query(formData: FormData) {
     let pathParts: string[] = [];
     for (const part of parts) {
         if (part.length > 24) {
-            throw new Error("EUI-64 is the maximum supported address length.");
+            throw new Error(`EUI-64 is the maximum supported address length (${part}).`);
         }
         const [clean, key, value] = createSearchCookie(part);
         cookies().set(key, value);
