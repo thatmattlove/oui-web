@@ -1,4 +1,3 @@
-import qs from "query-string";
 import { styled } from "~/styled-system/jsx";
 import { ExpectedError } from "~/components/expected-error";
 import { Form } from "~/components/form";
@@ -6,9 +5,9 @@ import { ResultsSingle } from "~/components/results.single";
 import { ResultsMultiple } from "~/components/results.multiple";
 import { Alert } from "~/components/alert";
 import { Divider } from "~/elements/divider";
-import { isMultipleResult, isQueryError, isSingleResult, type QueryResponse } from "~/types/query";
-import { cleanSearch } from "~/utils/cookies";
+import { isMultipleResult, isQueryError, isSingleResult } from "~/types/query";
 import { formatMacAddress } from "~/utils/format-mac";
+import { getSingle } from "~/utils/get-data";
 
 import { query } from "../../actions";
 
@@ -22,10 +21,12 @@ export function generateMetadata(props: ResultPageProps) {
     const {
         params: { mac },
     } = props;
-    const isValid = mac.length < 6;
+    const isValid = mac.length > 6;
     const title = isValid ? `oui results for ${formatMacAddress(mac)}` : "oui results";
+    const robots = process.env.NODE_ENV === "production" ? "index, follow" : "noindex, nofollow";
     const metadata: Metadata = {
         title,
+        robots,
         description: "MAC Address Vendor Lookup",
         metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL!),
         openGraph: {
@@ -39,6 +40,8 @@ export function generateMetadata(props: ResultPageProps) {
     return metadata;
 }
 
+export const preload = () => {};
+
 const Lead = styled("div", {
     base: {
         textTransform: "uppercase",
@@ -47,17 +50,6 @@ const Lead = styled("div", {
         fontWeight: "bold",
     },
 });
-
-async function getData(search: string): Promise<QueryResponse> {
-    const m = cleanSearch(search);
-    const url = qs.stringifyUrl({
-        url: `${process.env.NEXT_PUBLIC_BASE_URL}/api/query`,
-        query: { m },
-    });
-    const res = await fetch(url);
-    const results = await res.json();
-    return results as QueryResponse;
-}
 
 const Page: NextPage<ResultPageProps> = async (props) => {
     const {
@@ -70,7 +62,7 @@ const Page: NextPage<ResultPageProps> = async (props) => {
         );
     }
 
-    const results = await getData(mac);
+    const results = await getSingle(mac);
 
     return (
         <Form action={query} width={{ base: "100%", md: "fit-content" }}>

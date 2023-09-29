@@ -1,4 +1,3 @@
-import qs from "query-string";
 import { styled } from "~/styled-system/jsx";
 import { Form } from "~/components/form";
 import { ResultsSingle } from "~/components/results.single";
@@ -7,8 +6,8 @@ import { Divider } from "~/elements/divider";
 import { Alert } from "~/components/alert";
 import { ExpectedError } from "~/components/expected-error";
 import { query } from "../../actions";
-import { cleanSearch } from "~/utils/cookies";
-import { isMultipleResult, isQueryError, isSingleResult, type QueryResponse } from "~/types/query";
+import { getMultiple } from "~/utils/get-data";
+import { isMultipleResult, isQueryError, isSingleResult } from "~/types/query";
 import type { Metadata, NextPage } from "next";
 
 export interface ResultPageProps {
@@ -45,18 +44,6 @@ const Lead = styled("div", {
     },
 });
 
-async function getData(search: string[]): Promise<QueryResponse> {
-    const clean = search.map(cleanSearch);
-    const m = clean.join(",");
-    const url = qs.stringifyUrl({
-        url: `${process.env.NEXT_PUBLIC_BASE_URL}/api/query`,
-        query: { m },
-    });
-    const res = await fetch(url);
-    const results = await res.json();
-    return results as QueryResponse;
-}
-
 const Page: NextPage<ResultPageProps> = async (props) => {
     const {
         params: { mac },
@@ -69,7 +56,7 @@ const Page: NextPage<ResultPageProps> = async (props) => {
         );
     }
 
-    const results = await getData(mac);
+    const results = await getMultiple(mac);
     return (
         <Form action={query} width={{ base: "100%", md: "fit-content" }}>
             {isQueryError(results) ? (

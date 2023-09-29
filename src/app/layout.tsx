@@ -20,6 +20,7 @@ export const metadata: Metadata = {
     title: "oui",
     description: "MAC Address Vendor Lookup",
     metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL!),
+    robots: process.env.NODE_ENV === "production" ? "index, follow" : "noindex, nofollow",
     openGraph: {
         title: "oui",
         description: "MAC Address Vendor Lookup",
