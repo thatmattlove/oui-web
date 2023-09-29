@@ -5,8 +5,8 @@ import { cleanSearch } from "./cookies";
 
 import type { QueryResponse } from "~/types/query";
 
-export const preload = async () => {
-    await _getSingle("00:50:56:00:00:00");
+export const preload = () => {
+    void _getSingle("00:50:56:00:00:00");
 };
 
 async function _getSingle(search: string): Promise<QueryResponse> {
