@@ -6,8 +6,9 @@ import { Footer } from "~/elements/footer";
 import { IconButtonLink } from "~/elements/icon-button";
 import { Icon } from "~/elements/icon";
 import { ThemeSwitchIconButton } from "~/components/theme-switch-button";
-import { styled } from "~/styled-system/jsx";
+import { styled, Stack } from "~/styled-system/jsx";
 import { HotKey } from "~/components/hotkey";
+import { LastUpdated } from "~/components/last-updated";
 
 import { Providers } from "./providers";
 import { GitHub } from "~/icons/github";
@@ -70,9 +71,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     <Main>
                         {children}
                         <Footer>
-                            <GitHubLink />
-                            <ThemeSwitchIconButton />
                             <HotKey />
+                            <Stack direction="row" gap="4" align="center">
+                                <LastUpdated />
+                                <GitHubLink />
+                                <ThemeSwitchIconButton />
+                            </Stack>
                         </Footer>
                     </Main>
                 </Providers>

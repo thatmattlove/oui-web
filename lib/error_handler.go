@@ -22,10 +22,14 @@ func ErrorHandler(ctx *fiber.Ctx, err error) error {
 	}
 	if err == keyauth.ErrMissingOrMalformedAPIKey {
 		// Authentication error
+		headers := make(map[string]string)
+		ctx.Request().Header.VisitAll(func(k []byte, v []byte) {
+			headers[string(k)] = string(v)
+		})
 		log.Error().
 			Str("method", ctx.Method()).
 			Str("url", ctx.Request().URI().String()).
-			Interface("headers", ctx.GetRespHeaders()).
+			Interface("headers", headers).
 			Interface("query", ctx.Queries()).
 			Msg("authentication failed")
 		code = http.StatusUnauthorized

@@ -16,7 +16,8 @@
         "query-string": "^8.1.0",
         "react": "18.2.0",
         "react-dom": "18.2.0",
-        "react-hotkeys-hook": "^4.4.1"
+        "react-hotkeys-hook": "^4.4.1",
+        "swr": "^2.2.4"
     },
     "devDependencies": {
         "@pandacss/dev": "^0.15.1",

@@ -95,6 +95,12 @@ export default defineConfig({
                             _dark: "{colors.rose.950}",
                         },
                     },
+                    badge: {
+                        value: {
+                            _light: "slate.100",
+                            _dark: "slate.900",
+                        },
+                    },
                 },
             },
             tokens: {

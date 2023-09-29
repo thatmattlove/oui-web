@@ -57,7 +57,7 @@ func buildSingleResponse(matches []*oui.VendorDef) ([]QueryResponse, error) {
 }
 
 func Query(ctx *fiber.Ctx) error {
-	log := zerolog.Ctx(ctx.Context())
+	log := zerolog.Ctx(ctx.UserContext())
 	query := ctx.Query("m", "none")
 	log.Debug().Str("mac", query).Msg("")
 	if query == "none" {

@@ -1,6 +1,6 @@
 "use client";
 import { css } from "~/styled-system/css";
-import { IconButton } from "~/elements/icon-button";
+import { IconButton, type IconButtonProps } from "~/elements/icon-button";
 import { Icon } from "~/elements/icon";
 import { useTheme } from "next-themes";
 import { LightBulb } from "~/icons/light-bulb";
@@ -36,7 +36,7 @@ const switchStyle = css({
     },
 });
 
-export function ThemeSwitchIconButton() {
+export function ThemeSwitchIconButton(props: Omit<IconButtonProps, "aria-label">) {
     const { iconText, toggleTheme, isDark } = useThemeSwitch();
 
     return (
@@ -51,6 +51,7 @@ export function ThemeSwitchIconButton() {
             className={switchStyle}
             _hover={{ bg: "bg.muted" }}
             _dark={{ color: "slate.300" }}
+            {...props}
         >
             <Icon>
                 <LightBulb outline={!isDark} />
