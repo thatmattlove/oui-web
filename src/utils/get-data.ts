@@ -29,6 +29,7 @@ async function _getMultiple(search: string[]): Promise<QueryResponse> {
         },
         { arrayFormat: "comma" }
     );
+    console.log({ url });
     const res = await fetch(url);
     const results = await res.json();
     return results as QueryResponse;
