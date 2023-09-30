@@ -1,4 +1,5 @@
 import "server-only";
+import { cookies } from "next/headers";
 import { cache } from "react";
 import qs from "query-string";
 import { prepareMultiple, prepareSingle } from "./prepare";
@@ -29,7 +30,7 @@ async function _getMultiple(search: string[]): Promise<QueryResponse> {
         },
         { arrayFormat: "comma" }
     );
-    console.error(url);
+    cookies().set("ffs", url);
     const res = await fetch(url);
     const results = await res.json();
     return results as QueryResponse;

@@ -56,6 +56,8 @@ const Page: NextPage<ResultPageProps> = async (props) => {
         );
     }
 
+    console.log(mac);
+
     const results = await getMultiple(mac);
     return (
         <Form action={query} width={{ base: "100%", md: "fit-content" }}>
