@@ -37,4 +37,5 @@ async function _getMultiple(search: string[]): Promise<QueryResponse> {
 
 export const getSingle = cache(_getSingle);
 
-export const getMultiple = cache(_getMultiple);
+// export const getMultiple = cache(_getMultiple);
+export const getMultiple = _getMultiple;
