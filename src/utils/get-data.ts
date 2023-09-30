@@ -22,10 +22,13 @@ async function _getSingle(search: string): Promise<QueryResponse> {
 
 async function _getMultiple(search: string[]): Promise<QueryResponse> {
     const m = prepareMultiple(search);
-    const url = qs.stringifyUrl({
-        url: `${process.env.NEXT_PUBLIC_BASE_URL}/api/query`,
-        query: { m },
-    });
+    const url = qs.stringifyUrl(
+        {
+            url: `${process.env.NEXT_PUBLIC_BASE_URL}/api/query`,
+            query: { m },
+        },
+        { arrayFormat: "comma" }
+    );
     const res = await fetch(url);
     const results = await res.json();
     return results as QueryResponse;

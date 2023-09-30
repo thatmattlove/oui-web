@@ -14,11 +14,11 @@ describe("single", () => {
 describe("multiple", () => {
     test("basic", () => {
         const result = prepareMultiple(["78:50:7c:21:fc:13", "00:50:56:00:00:00"]);
-        expect(result).toBe("78507c21fc13,005056000000");
+        expect(result).toStrictEqual(["78507c21fc13", "005056000000"]);
     });
     test("with garbage", () => {
         const result = prepareMultiple(["78:50:z7c:&21:ghfc:13", "0%0:&50:5(6:00:00:@00"]);
-        expect(result).toBe("78507c21fc13,005056000000");
+        expect(result).toStrictEqual(["78507c21fc13", "005056000000"]);
     });
     test("with extra invalid elements", () => {
         const result = prepareMultiple([
@@ -28,6 +28,6 @@ describe("multiple", () => {
             "@(#&$&(&^%",
             "wrong",
         ]);
-        expect(result).toBe("78507c21fc13,005056000000");
+        expect(result).toStrictEqual(["78507c21fc13", "005056000000"]);
     });
 });

@@ -7,11 +7,6 @@ export function prepareSingle(search: string): string {
     );
 }
 
-export function prepareMultiple(search: string[]): string {
-    return encodeURI(
-        search
-            .map(prepareSingle)
-            .filter((r) => /[0-9a-f]+/gi.test(r))
-            .join(",")
-    );
+export function prepareMultiple(search: string[]): string[] {
+    return search.map(prepareSingle).filter((r) => /[0-9a-f]+/gi.test(r));
 }
