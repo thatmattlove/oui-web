@@ -57,9 +57,27 @@ func buildSingleResponse(matches []*oui.VendorDef) ([]QueryResponse, error) {
 	return results, nil
 }
 
+func getData(ctx *fiber.Ctx) string {
+	contentType := strings.ToLower(ctx.Get("content-type"))
+	if strings.Contains(contentType, "multipart/form-data") {
+		return ctx.FormValue("search", "none")
+	}
+	return ctx.Query("m", "none")
+}
+
 func Query(ctx *fiber.Ctx) error {
-	log := zerolog.Ctx(ctx.UserContext()).With().Str("request-uri", ctx.Request().URI().String()).Logger()
-	query := ctx.Query("m", "none")
+	log := zerolog.Ctx(ctx.UserContext()).
+		With().
+		Str("request-uri", ctx.Request().URI().String()).
+		Str("content-type", ctx.Get("content-type")).
+		Logger()
+	form, err := ctx.MultipartForm()
+	if err != nil {
+		log.Err(err).Msg("")
+		return ctx.Status(500).JSON(fiber.Map{"error": err.Error()})
+	}
+	log.Info().Strs("search", form.Value["search"]).Msg("")
+	query := getData(ctx)
 	log = log.With().Str("query", query).Logger()
 	if query == "none" {
 		log.Error().Msg("empty query")
@@ -69,7 +87,6 @@ func Query(ctx *fiber.Ctx) error {
 		log.Error().Msg("query is shorter than 6 characters")
 		return ctx.Status(400).JSON(fiber.Map{"error": "At least 6 characters are required."})
 	}
-
 	queries, err := lib.Sanitize(query)
 	if err != nil {
 		return ctx.Status(400).JSON(fiber.Map{"error": err.Error()})

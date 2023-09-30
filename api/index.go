@@ -68,6 +68,7 @@ func handler() http.HandlerFunc {
 	}
 
 	app.Get("/api/query", handlers.Query)
+	app.Post("/api/query", handlers.Query)
 
 	app.Post("/api/populate", keyauth.New(
 		keyauth.Config{

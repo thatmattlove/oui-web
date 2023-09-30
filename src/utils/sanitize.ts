@@ -1,6 +1,8 @@
+export function split(value: string): string[] {
+    return value.split(/(\r\n|\n\r|\n|\r|\s|,)/);
+}
 export function sanitize(value: string): string[] {
-    const parts = value
-        .split(/(\n|\r|\s)/)
+    const parts = split(value)
         .map((r) =>
             r
                 .replaceAll(/[^0-9a-f]/gi, "")

@@ -1,13 +1,17 @@
-import { prepareSingle } from "./prepare";
+import { cookies } from "next/headers";
+import { sanitize, split } from "./sanitize";
 
 const prefix = "search-value--";
 
-export function getCookieKey(clean: string): string {
-    return `${prefix}${clean}`;
+export function getCookieKey(value: string): string {
+    const sanitized = sanitize(value);
+    return `${prefix}${sanitized}`;
 }
 
-export function createSearchCookie(search: string): [string, string, string] {
-    const clean = prepareSingle(search);
-    const key = getCookieKey(clean);
-    return [clean, key, search];
+export function setCookies(raw: string): void {
+    const parts = split(raw);
+    for (const part of parts) {
+        const key = getCookieKey(part);
+        cookies().set(key, part);
+    }
 }
