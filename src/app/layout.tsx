@@ -1,5 +1,5 @@
 import "./globals.css";
-import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/react";
 import { Inter, Fira_Code } from "next/font/google";
 import { Main } from "~/elements/main";
 import { Footer } from "~/elements/footer";
@@ -9,9 +9,10 @@ import { ThemeSwitchIconButton } from "~/components/theme-switch-button";
 import { styled, Stack } from "~/styled-system/jsx";
 import { HotKey } from "~/components/hotkey";
 import { LastUpdated } from "~/components/last-updated";
-
-import { Providers } from "./providers";
 import { GitHub } from "~/icons/github";
+import { Providers } from "./providers";
+
+import type { Metadata } from "next";
 
 const inter = Inter({ subsets: ["latin"], display: "swap", variable: "--font-body" });
 const firaCode = Fira_Code({ subsets: ["latin"], display: "swap", variable: "--font-mono" });
@@ -81,6 +82,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                         </Footer>
                     </Main>
                 </Providers>
+                <Analytics />
             </Body>
         </html>
     );
