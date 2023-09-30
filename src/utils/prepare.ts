@@ -1,5 +1,5 @@
 export function prepareSingle(search: string): string {
-    return decodeURI(
+    return encodeURI(
         search
             .replaceAll(/[^0-9a-f]/gi, "")
             .trim()
@@ -8,7 +8,7 @@ export function prepareSingle(search: string): string {
 }
 
 export function prepareMultiple(search: string[]): string {
-    return decodeURI(
+    return encodeURI(
         search
             .map(prepareSingle)
             .filter((r) => /[0-9a-f]+/gi.test(r))
