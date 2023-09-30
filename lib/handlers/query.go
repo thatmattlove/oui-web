@@ -58,21 +58,26 @@ func buildSingleResponse(matches []*oui.VendorDef) ([]QueryResponse, error) {
 }
 
 func Query(ctx *fiber.Ctx) error {
-	log := zerolog.Ctx(ctx.UserContext())
+	log := zerolog.Ctx(ctx.UserContext()).With().Str("request-uri", ctx.Request().URI().String()).Logger()
 	query := ctx.Query("m", "none")
+	log = log.With().Str("query", query).Logger()
 	if query == "none" {
+		log.Error().Msg("empty query")
 		return ctx.Status(400).JSON(fiber.Map{"error": "MAC address required"})
 	}
 	if len(query) < 6 {
+		log.Error().Msg("query is shorter than 6 characters")
 		return ctx.Status(400).JSON(fiber.Map{"error": "At least 6 characters are required."})
 	}
-	log.Debug().Str("query", query).Msg("")
+
 	queries, err := lib.Sanitize(query)
 	if err != nil {
 		return ctx.Status(400).JSON(fiber.Map{"error": err.Error()})
 	}
+	log = log.With().Strs("sanitized-queries", queries).Logger()
 	for _, q := range queries {
 		if len(q) > 24 {
+			log.Error().Str("q", q).Msg("query exceeds max length")
 			return ctx.Status(400).JSON(fiber.Map{"error": fmt.Sprintf("EUI-64 is the maximum supported address length (%s).", q)})
 		}
 	}
@@ -110,6 +115,6 @@ func Query(ctx *fiber.Ctx) error {
 		match := singleMatches[0]
 		results[match.OUI] = match
 	}
-
+	log.Info().Msg("completed query")
 	return ctx.Status(200).JSON(results)
 }
