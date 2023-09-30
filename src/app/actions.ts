@@ -2,16 +2,14 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { createSearchCookie } from "~/utils/cookies";
+import { sanitize } from "~/utils/sanitize";
 
 export async function query(formData: FormData) {
     const raw = formData.get("mac")?.toString() ?? "";
     if (raw.length < 6) {
         throw new Error("At least 6 characters are required.");
     }
-    const parts = raw
-        .split(/[^0-9a-f]/gi)
-        .map((r) => r.trim().toLowerCase())
-        .map(decodeURI);
+    const parts = sanitize(raw);
     let pathParts: string[] = [];
     for (const part of parts) {
         if (part.length > 24) {
