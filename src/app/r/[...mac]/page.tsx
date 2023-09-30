@@ -60,7 +60,7 @@ const Page: NextPage<ResultPageProps> = async (props) => {
     return (
         <Form action={query} width={{ base: "100%", md: "fit-content" }}>
             {isQueryError(results) ? (
-                <ExpectedError title="Error" message={results.error} hideBackButton />
+                <ExpectedError title="Error" message={results.error} hideBackButton isServerError />
             ) : isSingleResult(results) ? (
                 <ResultsSingle search={mac[0]} results={results} />
             ) : isMultipleResult(results) ? (

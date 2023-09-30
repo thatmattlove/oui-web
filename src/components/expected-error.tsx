@@ -10,10 +10,11 @@ interface ExpectedErrorProps {
     title: string;
     message?: string;
     hideBackButton?: boolean;
+    isServerError?: boolean;
 }
 
 export const ExpectedError = (props: ExpectedErrorProps) => {
-    const { title, message, hideBackButton } = props;
+    const { title, message, hideBackButton, isServerError } = props;
     return (
         <Alert
             bg="alert-bg"
@@ -21,6 +22,7 @@ export const ExpectedError = (props: ExpectedErrorProps) => {
             height="fit-content"
             borderColor="alert-border"
             width={{ base: "100%", md: "xl" }}
+            {...(isServerError ? { "data-server-error": "" } : {})}
         >
             <Stack gap="4" direction={{ base: "column", md: "row" }} justifyContent="space-between">
                 <Stack gap="4" direction={{ base: "column", md: "row" }}>

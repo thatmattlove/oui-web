@@ -9,8 +9,8 @@ export async function query(formData: FormData) {
         throw new Error("At least 6 characters are required.");
     }
     const parts = raw
-        .split("\n")
-        .map((r) => r.trim())
+        .split(/[^0-9a-f]/gi)
+        .map((r) => r.trim().toLowerCase())
         .map(decodeURI);
     let pathParts: string[] = [];
     for (const part of parts) {
