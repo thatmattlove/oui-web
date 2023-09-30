@@ -1,7 +1,7 @@
 import "server-only";
 import { cache } from "react";
 import qs from "query-string";
-import { cleanSearch } from "./cookies";
+import { prepareMultiple, prepareSingle } from "./prepare";
 
 import type { QueryResponse } from "~/types/query";
 
@@ -10,7 +10,7 @@ export const preload = () => {
 };
 
 async function _getSingle(search: string): Promise<QueryResponse> {
-    const m = cleanSearch(search);
+    const m = prepareSingle(search);
     const url = qs.stringifyUrl({
         url: `${process.env.NEXT_PUBLIC_BASE_URL}/api/query`,
         query: { m },
@@ -21,8 +21,7 @@ async function _getSingle(search: string): Promise<QueryResponse> {
 }
 
 async function _getMultiple(search: string[]): Promise<QueryResponse> {
-    const clean = search.map(cleanSearch);
-    const m = clean.join(",");
+    const m = prepareMultiple(search);
     const url = qs.stringifyUrl({
         url: `${process.env.NEXT_PUBLIC_BASE_URL}/api/query`,
         query: { m },

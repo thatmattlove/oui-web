@@ -7,7 +7,7 @@ export function sanitize(value: string): string[] {
                 .trim()
                 .toLowerCase()
         )
-        .filter((r) => r.length > 0)
+        .filter((r) => /[0-9a-f]+/gi.test(r))
         .map(decodeURI);
     return parts;
 }
