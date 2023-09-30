@@ -30,6 +30,11 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 func handler() http.HandlerFunc {
 	logger := log.Output(zerolog.ConsoleWriter{Out: os.Stderr, TimeFormat: time.RFC3339Nano})
 	logger.Level(zerolog.DebugLevel)
+	if os.Getenv("VERCEL_ENV") == "production" {
+		logger = zerolog.New(os.Stderr).With().Timestamp().Logger()
+		logger.Level(zerolog.InfoLevel)
+	}
+
 	ctx := context.TODO()
 	ctx = logger.WithContext(ctx)
 
@@ -59,7 +64,7 @@ func handler() http.HandlerFunc {
 
 	env, err := lib.LoadEnv()
 	if err != nil {
-		panic(err)
+		logger.Panic().Err(err).Msg("failed to load environment variables")
 	}
 
 	app.Get("/api/query", handlers.Query)
@@ -69,7 +74,6 @@ func handler() http.HandlerFunc {
 			KeyLookup:    "header:Authorization",
 			Validator:    lib.NewAuthenticator(env.PopulateKey),
 			ErrorHandler: lib.ErrorHandler,
-			// AuthScheme:   "",
 		},
 	), handlers.Populate)
 
