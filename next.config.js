@@ -1,11 +1,12 @@
 function getBaseURL() {
-    let scheme = "http://";
-    let host = "localhost:3000";
-    if (["production", "preview"].includes(process.env.VERCEL_ENV)) {
-        scheme = "https://";
-        host = process.env.VERCEL_URL;
+    switch (process.env.VERCEL_ENV) {
+        case "production":
+            return "https://oui.is";
+        case "preview":
+            return `https://${process.env.VERCEL_URL}`;
+        default:
+            return "http://localhost:3000";
     }
-    return [scheme, host].join("");
 }
 
 /** @type {import('next').NextConfig} */
