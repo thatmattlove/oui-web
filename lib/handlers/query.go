@@ -1,3 +1,4 @@
+//lint:file-ignore ST1005 these are user-facing UI errors.
 package handlers
 
 import (
@@ -59,14 +60,17 @@ func buildSingleResponse(matches []*oui.VendorDef) ([]QueryResponse, error) {
 func Query(ctx *fiber.Ctx) error {
 	log := zerolog.Ctx(ctx.UserContext())
 	query := ctx.Query("m", "none")
-	log.Debug().Str("mac", query).Msg("")
 	if query == "none" {
 		return ctx.Status(400).JSON(fiber.Map{"error": "MAC address required"})
 	}
 	if len(query) < 6 {
 		return ctx.Status(400).JSON(fiber.Map{"error": "At least 6 characters are required."})
 	}
-	queries := strings.Split(query, ",")
+	log.Debug().Str("query", query).Msg("")
+	queries, err := lib.Sanitize(query)
+	if err != nil {
+		return ctx.Status(400).JSON(fiber.Map{"error": err.Error()})
+	}
 	for _, q := range queries {
 		if len(q) > 24 {
 			return ctx.Status(400).JSON(fiber.Map{"error": fmt.Sprintf("EUI-64 is the maximum supported address length (%s).", q)})
