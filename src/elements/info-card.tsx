@@ -23,9 +23,9 @@ export const InfoCard = (props: InfoCardProps) => {
         >
             <Stack textAlign="center">
                 {typeof title === "string" ? <InfoCardTitle>{title}</InfoCardTitle> : title}
-                <styled.p textStyle={{ base: "sm", md: "md" }} color="fg.subtle">
+                <styled.div textStyle={{ base: "sm", md: "md" }} color="fg.subtle">
                     {child}
-                </styled.p>
+                </styled.div>
             </Stack>
         </Stack>
     );
