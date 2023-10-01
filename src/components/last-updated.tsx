@@ -1,5 +1,4 @@
 "use client";
-import qs from "query-string";
 import { styled, Stack, type StackProps } from "~/styled-system/jsx";
 import { isQueryError } from "~/types/query";
 import { isLastUpdatedResponse, type LastUpdatedResponse } from "~/types/last-updated";
@@ -29,10 +28,8 @@ async function get(url: string): Promise<LastUpdatedResponse> {
 
 function useLastUpdated() {
     const tz = useMemo(() => Intl.DateTimeFormat().resolvedOptions().timeZone, []);
-    const url = qs.stringifyUrl({
-        url: `${process.env.NEXT_PUBLIC_BASE_URL}/api/last-updated`,
-        query: { tz },
-    });
+    const url = new URL(`${process.env.NEXT_PUBLIC_BASE_URL}/api/last-updated`);
+    url.searchParams.set("tz", tz);
     return useSWR<LastUpdatedResponse, Error>(url, get);
 }
 
