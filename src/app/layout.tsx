@@ -72,17 +72,15 @@ export default async function RootLayout(props: React.PropsWithChildren) {
         >
             <Body>
                 <Providers>
-                    <Main>
-                        {children}
-                        <Footer>
-                            <HotKey />
-                            <Stack direction="row" gap="4" align="center">
-                                <LastUpdated />
-                                <GitHubLink />
-                                <ThemeSwitchIconButton />
-                            </Stack>
-                        </Footer>
-                    </Main>
+                    <Main>{children}</Main>
+                    <Footer>
+                        <HotKey />
+                        <Stack direction="row" gap="4" align="center">
+                            <LastUpdated />
+                            <GitHubLink />
+                            <ThemeSwitchIconButton />
+                        </Stack>
+                    </Footer>
                 </Providers>
                 <Analytics />
             </Body>

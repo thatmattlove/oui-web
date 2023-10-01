@@ -7,7 +7,7 @@ export const footer = defineRecipe({
         right: 0,
         w: "100%",
         bottom: 0,
-        pos: "absolute",
+        pos: "fixed",
         display: "flex",
         bg: "bg.subtle",
         alignItems: "center",
