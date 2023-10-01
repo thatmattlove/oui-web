@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="https://oui-kygsaa3mx-thatmattlove.vercel.app/opengraph-image">
+    <img src="https://oui.is/opengraph-image">
 </div>
 
 # Stack

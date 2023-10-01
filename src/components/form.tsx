@@ -18,15 +18,6 @@ import { ClipboardPlus } from "~/icons/clipboard-plus";
 import { Icon } from "~/elements/icon";
 import { InputGroup } from "~/elements/input-group";
 import { useInputValue } from "~/hooks/use-input-value";
-import { Portal } from "@ark-ui/react";
-import {
-    Tooltip,
-    TooltipArrow,
-    TooltipArrowTip,
-    TooltipContent,
-    TooltipPositioner,
-    TooltipTrigger,
-} from "~/elements/tooltip";
 
 export type FormProps = CardProps & { action: (args: FormData) => Promise<void> };
 
@@ -41,6 +32,7 @@ export const Form = (props: FormProps) => {
         { enableOnFormTags: true }
     );
     const { value, setValue, readFromClipboard, isSupported } = useInputValue();
+    const label = isSupported ? "Paste From Clipboard" : "Clipboard Inaccessible";
     return (
         <Card
             width={{ base: "100%", md: "sm" }}
@@ -78,42 +70,19 @@ export const Form = (props: FormProps) => {
                                 placeholder="00:53:00:00:b3:3f"
                                 onInput={(e) => setValue(e.currentTarget.value)}
                             />
-                            <Tooltip
-                                positioning={{ placement: "right" }}
-                                openDelay={0}
-                                closeDelay={0}
+                            <IconButton
+                                size="lg"
+                                title={label}
+                                variant="outline"
+                                aria-label={label}
+                                disabled={!isSupported}
+                                onClick={() => readFromClipboard()}
+                                _disabled={{ borderColor: "border.emphasized" }}
                             >
-                                <TooltipTrigger asChild>
-                                    <IconButton
-                                        disabled={!isSupported}
-                                        _disabled={{ borderColor: "border.emphasized" }}
-                                        size="lg"
-                                        variant="outline"
-                                        onClick={() => readFromClipboard()}
-                                        aria-label={
-                                            isSupported
-                                                ? "Paste From Clipboard"
-                                                : "Clipboard Inaccessible"
-                                        }
-                                    >
-                                        <Icon>
-                                            <ClipboardPlus />
-                                        </Icon>
-                                    </IconButton>
-                                </TooltipTrigger>
-                                <Portal>
-                                    <TooltipPositioner>
-                                        <TooltipContent bg="kbd-bg" color="kbd-fg">
-                                            <TooltipArrow>
-                                                <TooltipArrowTip />
-                                            </TooltipArrow>
-                                            {isSupported
-                                                ? "Paste From Clipboard"
-                                                : "Clipboard Inaccessible"}
-                                        </TooltipContent>
-                                    </TooltipPositioner>
-                                </Portal>
-                            </Tooltip>
+                                <Icon>
+                                    <ClipboardPlus />
+                                </Icon>
+                            </IconButton>
                         </InputGroup>
                     </Stack>
                 </CardContent>

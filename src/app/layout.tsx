@@ -1,4 +1,5 @@
 import "./globals.css";
+import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react";
 import { Inter, Fira_Code } from "next/font/google";
 import { Main } from "~/elements/main";
@@ -68,6 +69,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             className={`${inter.variable} ${firaCode.variable}`}
             suppressHydrationWarning
         >
+            <head>
+                <Script
+                    async
+                    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9791044142501426"
+                    crossOrigin="anonymous"
+                />
+            </head>
             <Body>
                 <Providers>
                     <Main>
