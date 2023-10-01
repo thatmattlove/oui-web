@@ -4,7 +4,7 @@ export const main = defineRecipe({
     className: "main",
     base: {
         w: "100%",
-        h: "100%",
+        height: { base: "calc(100vh - var(--spacing-20))", md: "calc(100vh - var(--spacing-12))" },
         display: "flex",
         flexDir: "column",
         overflow: "auto",
