@@ -36,7 +36,7 @@ export const Form = (props: FormProps) => {
     return (
         <Card
             width={{ base: "100%", md: "sm" }}
-            height={{ base: "md", md: "unset" }}
+            height={{ base: "xs", md: "unset" }}
             borderWidth={{ base: "0 ", md: "1px" }}
             justifyContent={{ base: "space-evenly", md: "unset" }}
             {...rest}

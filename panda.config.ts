@@ -2,6 +2,8 @@ import { defineConfig } from "@pandacss/dev";
 import { kbd } from "~/recipes/kbd";
 import { footer } from "~/recipes/footer";
 import { main } from "~/recipes/main";
+import { code } from "~/recipes/code";
+import { link } from "~/recipes/link";
 import { spinner } from "~/recipes/spinner";
 import { iconButton } from "~/recipes/icon-button";
 import { inputGroup } from "~/recipes/input-group";
@@ -26,7 +28,7 @@ export default defineConfig({
                     },
                 },
             },
-            recipes: { kbd, footer, main, spinner, iconButton, inputGroup },
+            recipes: { kbd, footer, main, spinner, iconButton, inputGroup, code, link },
             semanticTokens: {
                 colors: {
                     green: {

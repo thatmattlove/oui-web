@@ -10,6 +10,7 @@ export const main = defineRecipe({
         alignItems: "center",
         justifyContent: "center",
         px: { base: "2", sm: "8" },
-        py: { base: "12", md: "24" },
+        pb: { base: "12", md: "24" },
+        pt: { base: "2", md: "12" },
     },
 });
