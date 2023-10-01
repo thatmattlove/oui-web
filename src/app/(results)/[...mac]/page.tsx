@@ -37,7 +37,15 @@ export function generateMetadata(props: ResultPageProps) {
             siteName: "oui",
             type: "website",
             url: process.env.NEXT_PUBLIC_BASE_URL,
-            images: [{ url: `${process.env.NEXT_PUBLIC_BASE_URL}/og/${mac.join("/")}` }],
+            images: [
+                {
+                    url: `/og/${mac.join("/")}`,
+                    type: "image/png",
+                    width: 1200,
+                    height: 630,
+                    alt: "oui",
+                },
+            ],
         },
     };
     return metadata;

@@ -4,14 +4,6 @@ import { formatMacAddress } from "~/utils/format-mac";
 
 export const runtime = "edge";
 
-export const alt = "oui";
-export const size = {
-    width: 1200,
-    height: 630,
-};
-
-export const contentType = "image/png";
-
 async function getMAC(mac: string[]): Promise<string> {
     if (mac.length === 1) {
         try {
@@ -85,7 +77,7 @@ const WithVendor = (props: React.PropsWithChildren) => (
     />
 );
 
-export async function GET(req: Request) {
+export async function GET(req: Request, ctx: { params: { path: string[] } }): Promise<Response> {
     const { firaCode, inter } = await loadFonts();
     const fonts: ImageResponseOptions["fonts"] = [
         {
@@ -102,8 +94,7 @@ export async function GET(req: Request) {
         },
     ];
 
-    const url = new URL(req.url);
-    const mac = url.pathname.split("/").filter((p) => p !== "" && p !== "og");
+    const mac = ctx.params.path;
 
     const base = new ImageResponse(
         (
@@ -112,7 +103,7 @@ export async function GET(req: Request) {
                 <div style={{ fontFamily: "Inter", fontSize: 64 }}>MAC Address Vendor Lookup</div>
             </Standard>
         ),
-        { ...size, fonts }
+        { width: 1200, height: 630, fonts }
     );
 
     if (mac.length === 0) {
@@ -152,6 +143,6 @@ export async function GET(req: Request) {
                 </div>
             </WithVendor>
         ),
-        { ...size, fonts }
+        { width: 1200, height: 630, fonts }
     );
 }
