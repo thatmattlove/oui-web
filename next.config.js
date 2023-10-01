@@ -17,6 +17,7 @@ function getBaseURL() {
 const nextConfig = {
     experimental: {
         serverActions: true,
+        optimizePackageImports: ["@ark-ui/react"],
     },
     env: {
         NEXT_PUBLIC_BASE_URL: getBaseURL(),
