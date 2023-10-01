@@ -12,7 +12,6 @@ async function submitFormData(body: FormData): Promise<QueryResponse> {
     const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/query`, {
         method: "POST",
         body,
-        // headers: new Headers({ "content-type": "multipart/form-data" }),
     });
     const json = await response.json();
     return json as QueryResponse;

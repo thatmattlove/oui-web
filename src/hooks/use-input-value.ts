@@ -10,11 +10,27 @@ export function useInputValue() {
     }, []);
 
     useEffect(() => {
-        const supported =
-            typeof navigator !== "undefined" && typeof navigator.clipboard !== "undefined";
-
-        if (supported !== isSupported) {
-            setSupported(supported);
+        if (typeof navigator !== "undefined") {
+            const hasClipboard =
+                typeof navigator.clipboard !== "undefined" &&
+                typeof navigator.clipboard.readText === "function";
+            navigator.permissions
+                .query({ name: "clipboard-read" as PermissionName })
+                .then((value) => {
+                    console.log(value.state);
+                    if (value.state !== "denied" && hasClipboard) {
+                        if (!isSupported) {
+                            setSupported(true);
+                        }
+                    }
+                })
+                .catch(() => {
+                    if (isSupported && !hasClipboard) {
+                        setSupported(false);
+                    } else if (!isSupported && hasClipboard) {
+                        setSupported(true);
+                    }
+                });
         }
     }, [isSupported, setSupported]);
 
