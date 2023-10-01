@@ -18,5 +18,5 @@ export async function query(formData: FormData) {
         pathParts = [...pathParts, part];
     }
     const path = pathParts.join("/");
-    return redirect(`/r/${path}`);
+    return redirect(`/${path}`);
 }

@@ -1,32 +1,34 @@
 import { styled } from "~/styled-system/jsx";
-import { ExpectedError } from "~/components/expected-error";
 import { Form } from "~/components/form";
 import { ResultsSingle } from "~/components/results.single";
 import { ResultsMultiple } from "~/components/results.multiple";
-import { Alert } from "~/components/alert";
 import { Divider } from "~/elements/divider";
+import { Alert } from "~/components/alert";
+import { ExpectedError } from "~/components/expected-error";
+import { query } from "../../actions";
+import { getMultiple } from "~/utils/get-data";
 import { isMultipleResult, isQueryError, isSingleResult } from "~/types/query";
 import { formatMacAddress } from "~/utils/format-mac";
-import { getSingle } from "~/utils/get-data";
-
-import { query } from "../../actions";
-
 import type { Metadata, NextPage } from "next";
 
 export interface ResultPageProps {
-    params: { mac: string };
+    params: { mac: string[] };
 }
 
 export function generateMetadata(props: ResultPageProps) {
     const {
         params: { mac },
     } = props;
-    const isValid = mac.length > 6;
-    const title = isValid ? `oui results for ${formatMacAddress(mac)}` : "oui results";
-    const robots = process.env.NODE_ENV === "production" ? "index, follow" : "noindex, nofollow";
+    const isValid = mac.every((m) => m.length >= 6);
+    const isSingle = mac.length === 1;
+    let title = "oui results";
+    if (isValid && isSingle) {
+        title = `oui results for ${formatMacAddress(mac[0])}`;
+    } else if (isValid && !isSingle) {
+        title = `oui results for ${mac.length} addresses`;
+    }
     const metadata: Metadata = {
         title,
-        robots,
         description: "MAC Address Vendor Lookup",
         metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL!),
         openGraph: {
@@ -35,6 +37,7 @@ export function generateMetadata(props: ResultPageProps) {
             siteName: "oui",
             type: "website",
             url: process.env.NEXT_PUBLIC_BASE_URL,
+            images: [{ url: `${process.env.NEXT_PUBLIC_BASE_URL}/og/${mac.join("/")}` }],
         },
     };
     return metadata;
@@ -54,26 +57,25 @@ const Page: NextPage<ResultPageProps> = async (props) => {
         params: { mac },
     } = props;
 
-    if (mac.length < 6) {
+    const isValid = mac.every((m) => m.length >= 6);
+    if (!isValid) {
         return (
             <ExpectedError title="Invalid Search" message="At least 6 characters are required." />
         );
     }
 
-    const results = await getSingle(mac);
-
+    const results = await getMultiple(mac);
     return (
         <Form action={query} width={{ base: "100%", md: "fit-content" }}>
             {isQueryError(results) ? (
                 <ExpectedError title="Error" message={results.error} hideBackButton isServerError />
             ) : isSingleResult(results) ? (
-                <ResultsSingle search={mac} results={results} />
+                <ResultsSingle search={mac[0]} results={results} />
             ) : isMultipleResult(results) ? (
                 <ResultsMultiple results={results} />
             ) : (
                 <Alert title="No Results Found" />
             )}
-
             <Divider mx="-6" />
             <Lead>Search Again</Lead>
         </Form>

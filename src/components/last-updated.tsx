@@ -75,17 +75,26 @@ const Time = (props: LastUpdatedResponse) => {
 
 export const LastUpdated = (props: StackProps) => {
     const { data, error } = useLastUpdated();
+    if (typeof error !== "undefined") {
+        console.group("Failed to get last updated time");
+        console.error(error);
+        console.groupEnd();
+    }
     return (
         <Stack direction="column" gap="0.5" justify="center" align="flex-end" {...props}>
             {typeof error !== "undefined" && (
                 <styled.span fontSize="xs" color="red">
-                    {error.message}
+                    Failed to Retrieve Last Updated Time
                 </styled.span>
             )}
-            {typeof data !== "undefined" && <Time {...data} />}
-            <styled.span fontSize="xx-small" display="flex" color="fg.muted">
-                Last Updated
-            </styled.span>
+            {typeof data !== "undefined" && (
+                <>
+                    <Time {...data} />
+                    <styled.span fontSize="xx-small" display="flex" color="fg.muted">
+                        Last Updated
+                    </styled.span>
+                </>
+            )}
         </Stack>
     );
 };
