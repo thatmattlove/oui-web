@@ -6,7 +6,7 @@ import { Footer } from "~/elements/footer";
 import { IconButtonLink } from "~/elements/icon-button";
 import { Icon } from "~/elements/icon";
 import { ThemeSwitchIconButton } from "~/components/theme-switch-button";
-import { styled, Stack } from "~/styled-system/jsx";
+import { styled, Stack, HStack } from "~/styled-system/jsx";
 import { HotKey } from "~/components/hotkey";
 import { LastUpdated } from "~/components/last-updated";
 import { GitHub } from "~/icons/github";
@@ -75,10 +75,18 @@ export default async function RootLayout(props: React.PropsWithChildren) {
                     <Main>{children}</Main>
                     <Footer>
                         <HotKey />
-                        <Stack direction="row" gap="4" align="center">
+                        <Stack
+                            direction="row"
+                            gap="4"
+                            align="center"
+                            w="100%"
+                            justify={{ base: "space-between", md: "flex-end" }}
+                        >
                             <LastUpdated />
-                            <GitHubLink />
-                            <ThemeSwitchIconButton />
+                            <HStack>
+                                <GitHubLink />
+                                <ThemeSwitchIconButton />
+                            </HStack>
                         </Stack>
                     </Footer>
                 </Providers>

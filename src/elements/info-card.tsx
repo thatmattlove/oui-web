@@ -12,6 +12,7 @@ export const InfoCard = (props: InfoCardProps) => {
     const child = content || children;
     return (
         <Stack
+            w="100%"
             align="center"
             bg="bg.subtle"
             justify="center"
