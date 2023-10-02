@@ -1,8 +1,8 @@
 "use client";
-import { styled, Stack, type StackProps } from "~/styled-system/jsx";
+import { styled, VStack, type VstackProps } from "~/styled-system/jsx";
 import { isQueryError } from "~/types/query";
 import { isLastUpdatedResponse, type LastUpdatedResponse } from "~/types/last-updated";
-import useSWR from "swr/immutable";
+import useSWRImmutable from "swr/immutable";
 import { useMemo } from "react";
 import { Portal } from "@ark-ui/react";
 import {
@@ -26,11 +26,16 @@ async function get(url: string): Promise<LastUpdatedResponse> {
     throw new Error("unknown response");
 }
 
-function useLastUpdated() {
-    const tz = useMemo(() => Intl.DateTimeFormat().resolvedOptions().timeZone, []);
-    const url = new URL(`${process.env.NEXT_PUBLIC_BASE_URL}/api/last-updated`);
-    url.searchParams.set("tz", tz);
-    return useSWR<LastUpdatedResponse, Error>(url, get);
+function useLastUpdated(): { data?: LastUpdatedResponse; error?: Error } {
+    const url = useMemo(() => {
+        const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        const url = new URL(`${process.env.NEXT_PUBLIC_BASE_URL}/api/last-updated`);
+        url.searchParams.set("tz", tz);
+        return url;
+    }, []);
+
+    const { data, error } = useSWRImmutable<LastUpdatedResponse, Error>(url, get);
+    return { data, error };
 }
 
 function useFormattedTime(time: string, tz?: string): string {
@@ -70,7 +75,7 @@ const Time = (props: LastUpdatedResponse) => {
     );
 };
 
-export const LastUpdated = (props: StackProps) => {
+export const LastUpdated = (props: VstackProps) => {
     const { data, error } = useLastUpdated();
     if (typeof error !== "undefined") {
         console.group("Failed to get last updated time");
@@ -78,7 +83,7 @@ export const LastUpdated = (props: StackProps) => {
         console.groupEnd();
     }
     return (
-        <Stack direction="column" gap="0.5" justify="center" align="flex-end" {...props}>
+        <VStack gap="0.5" alignItems={{ base: "flex-start", md: "flex-end" }} {...props}>
             {typeof error !== "undefined" && (
                 <styled.span fontSize="xs" color="red">
                     Failed to Retrieve Last Updated Time
@@ -92,6 +97,6 @@ export const LastUpdated = (props: StackProps) => {
                     </styled.span>
                 </>
             )}
-        </Stack>
+        </VStack>
     );
 };

@@ -27,7 +27,7 @@ func Test_LastUpdated(t *testing.T) {
 	require.NoError(t, err)
 	t.Run("setup", func(t *testing.T) {
 		handler := func(ctx *fiber.Ctx) error {
-			kv, err := interfaces.NewKV(ctx, env.KV_URL)
+			kv, err := interfaces.NewKV(ctx, env.RedisURL)
 			require.NoError(t, err)
 			err = kv.SetLastUpdated(now)
 			require.NoError(t, err)

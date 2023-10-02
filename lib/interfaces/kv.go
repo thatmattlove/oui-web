@@ -12,6 +12,7 @@ import (
 
 var (
 	KEY_LAST_UPDATED string = "last-updated"
+	KEY_NEXT_UPDATE  string = "next-update"
 )
 
 type KV struct {
@@ -22,13 +23,26 @@ type KV struct {
 func (kv *KV) GetLastUpdated() (time.Time, error) {
 	res, err := kv.Redis.Get(kv.Ctx, KEY_LAST_UPDATED).Time()
 	if err != nil {
-		return time.Time{}, nil
+		return time.Time{}, err
+	}
+	return res, nil
+}
+
+func (kv *KV) GetNextUpdate() (time.Time, error) {
+	res, err := kv.Redis.Get(kv.Ctx, KEY_NEXT_UPDATE).Time()
+	if err != nil {
+		return time.Time{}, err
 	}
 	return res, nil
 }
 
 func (kv *KV) SetLastUpdated(date time.Time) error {
+	next := date.Add(12 * time.Hour)
 	_, err := kv.Redis.Set(kv.Ctx, KEY_LAST_UPDATED, date, -1).Result()
+	if err != nil {
+		return err
+	}
+	_, err = kv.Redis.Set(kv.Ctx, KEY_NEXT_UPDATE, next, -1).Result()
 	if err != nil {
 		return err
 	}

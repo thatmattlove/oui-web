@@ -1,6 +1,8 @@
 export interface LastUpdatedResponse {
     utc: string;
     local: string;
+    nextUtc: string;
+    nextLocal: string;
 }
 
 export function isLastUpdatedResponse(obj: unknown): obj is LastUpdatedResponse {

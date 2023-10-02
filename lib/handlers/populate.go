@@ -26,7 +26,7 @@ func Populate(ctx *fiber.Ctx) error {
 	if err != nil {
 		log.Err(err).Msg("failed to load environment variables")
 	} else {
-		kv, err := interfaces.NewKV(ctx, env.KV_URL)
+		kv, err := interfaces.NewKV(ctx, env.RedisURL)
 		if err != nil {
 			log.Err(err).Msg("failed to initialize KV")
 		} else {

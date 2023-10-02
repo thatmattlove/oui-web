@@ -7,7 +7,7 @@ import (
 )
 
 type Env struct {
-	KV_URL      string `env:"KV_URL"`
+	RedisURL    string `env:"UPSTASH_URL"`
 	PopulateKey string `env:"POPULATE_KEY"`
 }
 

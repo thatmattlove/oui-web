@@ -25,7 +25,7 @@ func init() {
 func Test_KV(t *testing.T) {
 	app := fiber.New()
 	handler := func(ctx *fiber.Ctx) error {
-		_, err := interfaces.NewKV(ctx, Env.KV_URL)
+		_, err := interfaces.NewKV(ctx, Env.RedisURL)
 		require.NoError(t, err)
 		return ctx.SendStatus(200)
 	}
@@ -38,7 +38,7 @@ func Test_KV(t *testing.T) {
 		date := time.Now()
 		t.Run("set", func(t *testing.T) {
 			handler := func(ctx *fiber.Ctx) error {
-				kv, err := interfaces.NewKV(ctx, Env.KV_URL)
+				kv, err := interfaces.NewKV(ctx, Env.RedisURL)
 				require.NoError(t, err)
 				err = kv.SetLastUpdated(date)
 				require.NoError(t, err)
@@ -52,7 +52,7 @@ func Test_KV(t *testing.T) {
 		})
 		t.Run("get", func(t *testing.T) {
 			handler := func(ctx *fiber.Ctx) error {
-				kv, err := interfaces.NewKV(ctx, Env.KV_URL)
+				kv, err := interfaces.NewKV(ctx, Env.RedisURL)
 				require.NoError(t, err)
 				reqDate, err := kv.GetLastUpdated()
 				require.NoError(t, err)
