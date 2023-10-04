@@ -41,9 +41,11 @@ function useLastUpdated(): { data?: LastUpdatedResponse; error?: Error } {
 function useFormattedTime(time: string, tz?: string): string {
     return useMemo(() => {
         const date = Date.parse(time);
-        const fmt = new Intl.DateTimeFormat(undefined, { timeStyle: "long", timeZone: tz }).format(
-            date
-        );
+        const fmt = new Intl.DateTimeFormat(undefined, {
+            dateStyle: "short",
+            timeStyle: "long",
+            timeZone: tz,
+        }).format(date);
         return fmt;
     }, [time, tz]);
 }
