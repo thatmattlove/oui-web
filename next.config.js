@@ -22,6 +22,16 @@ const nextConfig = {
     env: {
         NEXT_PUBLIC_BASE_URL: getBaseURL(),
     },
+    headers: async () => [
+        {
+            source: "/",
+            headers: [
+                { key: "cache-control", value: "max-age=9, s-maxage=1, stale-while-revalidate=59" },
+                { key: "cdn-cache-control", value: "s-maxage=60" },
+                { key: "vercel-cdn-cache-control", value: "s-maxage=3600" },
+            ],
+        },
+    ],
 };
 
 module.exports = withBundleAnalyzer(nextConfig);

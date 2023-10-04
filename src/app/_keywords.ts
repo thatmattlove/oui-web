@@ -1,0 +1,28 @@
+const keywords = [
+    "address",
+    "bulk mac address lookup",
+    "bulk oui lookup",
+    "convert mac address",
+    "ethernet address",
+    "find mac address",
+    "find oui",
+    "layer 2",
+    "mac address database",
+    "mac address lookup",
+    "mac address manufacturer lookup",
+    "mac address manufacturer",
+    "mac address search",
+    "mac address",
+    "mac information",
+    "mac",
+    "multiple mac address lookup",
+    "multiple oui lookup",
+    "oui assignment",
+    "oui information",
+    "oui lookup",
+    "oui search",
+    "oui",
+    "wireshark",
+];
+
+export default keywords;

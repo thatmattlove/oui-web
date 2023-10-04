@@ -9,6 +9,7 @@ import { query } from "../../actions";
 import { getMultiple } from "~/utils/get-data";
 import { isMultipleResult, isQueryError, isSingleResult } from "~/types/query";
 import { formatMacAddress } from "~/utils/format-mac";
+import keywords from "../../_keywords";
 import type { Metadata, NextPage } from "next";
 
 export interface ResultPageProps {
@@ -27,13 +28,17 @@ export function generateMetadata(props: ResultPageProps) {
     } else if (isValid && !isSingle) {
         title = `oui results for ${mac.length} addresses`;
     }
+    const allFmt = mac.map(formatMacAddress);
     const metadata: Metadata = {
         title,
-        description: "MAC Address Vendor Lookup",
+        description: "The easy to remember MAC Address OUI lookup tool",
         metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL!),
+        applicationName: "oui",
+        robots: process.env.NODE_ENV === "production" ? "index, follow" : "noindex, nofollow",
+        keywords: [...keywords, ...allFmt],
         openGraph: {
             title,
-            description: "MAC Address Vendor Lookup",
+            description: "The easy to remember MAC Address OUI lookup tool",
             siteName: "oui",
             type: "website",
             url: process.env.NEXT_PUBLIC_BASE_URL,

@@ -11,6 +11,7 @@ import { HotKey } from "~/components/hotkey";
 import { LastUpdated } from "~/components/last-updated";
 import { GitHub } from "~/icons/github";
 import { Providers } from "./providers";
+import keywords from "./_keywords";
 
 import type { Metadata } from "next";
 
@@ -18,17 +19,19 @@ const inter = Inter({ subsets: ["latin"], display: "swap", variable: "--font-bod
 const firaCode = Fira_Code({ subsets: ["latin"], display: "swap", variable: "--font-mono" });
 
 export const metadata: Metadata = {
-    title: "oui",
-    description: "MAC Address Vendor Lookup",
+    title: "oui :: MAC Address Search",
+    description: "The easy to remember MAC Address OUI lookup tool",
     metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL!),
+    applicationName: "oui",
     robots: process.env.NODE_ENV === "production" ? "index, follow" : "noindex, nofollow",
     openGraph: {
-        title: "oui",
-        description: "MAC Address Vendor Lookup",
+        title: "oui :: MAC Address Search",
+        description: "The easy to remember MAC Address OUI lookup tool",
         siteName: "oui",
         type: "website",
         url: process.env.NEXT_PUBLIC_BASE_URL,
     },
+    keywords,
 };
 
 const Body = styled("body", {
