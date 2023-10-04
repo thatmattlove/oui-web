@@ -58,6 +58,7 @@ export const Form = (props: FormProps) => {
                                 rows={1}
                                 required
                                 size="lg"
+                                autoFocus
                                 name="mac"
                                 minLength={6}
                                 resize="none"
