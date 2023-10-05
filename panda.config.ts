@@ -7,6 +7,8 @@ import { link } from "~/recipes/link";
 import { spinner } from "~/recipes/spinner";
 import { iconButton } from "~/recipes/icon-button";
 import { inputGroup } from "~/recipes/input-group";
+import { header } from "~/recipes/header";
+import { buttonLink } from "~/recipes/button-link";
 
 export default defineConfig({
     preflight: true,
@@ -28,7 +30,18 @@ export default defineConfig({
                     },
                 },
             },
-            recipes: { kbd, footer, main, spinner, iconButton, inputGroup, code, link },
+            recipes: {
+                buttonLink,
+                code,
+                footer,
+                header,
+                iconButton,
+                inputGroup,
+                kbd,
+                link,
+                main,
+                spinner,
+            },
             semanticTokens: {
                 colors: {
                     green: {

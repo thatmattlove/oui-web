@@ -2,6 +2,7 @@ import "./globals.css";
 import { Analytics } from "@vercel/analytics/react";
 import { Inter, Fira_Code } from "next/font/google";
 import { Main } from "~/elements/main";
+import { Header } from "~/elements/header";
 import { Footer } from "~/elements/footer";
 import { IconButtonLink } from "~/elements/icon-button";
 import { Icon } from "~/elements/icon";
@@ -9,6 +10,7 @@ import { ThemeSwitchIconButton } from "~/components/theme-switch-button";
 import { styled, Stack, HStack } from "~/styled-system/jsx";
 import { HotKey } from "~/components/hotkey";
 import { LastUpdated } from "~/components/last-updated";
+import { Tools } from "~/components/tools";
 import { GitHub } from "~/icons/github";
 import { Providers } from "./providers";
 import keywords from "./_keywords";
@@ -75,14 +77,25 @@ export default async function RootLayout(props: React.PropsWithChildren) {
         >
             <Body>
                 <Providers>
+                    <Header>
+                        <Tools
+                            positioning={{
+                                strategy: "fixed",
+                                flip: true,
+                                offset: { crossAxis: -100 },
+                            }}
+                        />
+                    </Header>
                     <Main>{children}</Main>
                     <Footer>
-                        <HotKey />
+                        <Stack gap="8" direction="row">
+                            <HotKey />
+                        </Stack>
                         <Stack
-                            direction="row"
                             gap="4"
-                            align="center"
                             w="100%"
+                            align="center"
+                            direction="row"
                             justify={{ base: "space-between", md: "flex-end" }}
                         >
                             <LastUpdated />

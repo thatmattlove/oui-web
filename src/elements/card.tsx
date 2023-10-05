@@ -11,9 +11,11 @@ export type CardProps = CardVariantProps & HTMLStyledProps<typeof ark.div>;
 const CardRoot = withProvider(styled(ark.div), "root");
 export const CardContent = withContext(styled(ark.div), "content");
 export const CardDescription = withContext(styled(ark.h2), "description");
+export const CardDescriptionH4 = withContext(styled(ark.h4), "description");
 export const CardFooter = withContext(styled(ark.div), "footer");
 export const CardHeader = withContext(styled(ark.div), "header");
 export const CardTitle = withContext(styled(ark.h1), "title");
+export const CardTitleH3 = withContext(styled(ark.h3), "title");
 
 export const Card = Object.assign(CardRoot, {
     Root: CardRoot,

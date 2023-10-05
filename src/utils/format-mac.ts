@@ -14,3 +14,32 @@ export function formatMacAddress(macAddress: string): string {
     // Join the pairs with colons to format the MAC address
     return pairs.join(":");
 }
+
+export class MACFormatter {
+    public clean: string;
+
+    constructor(initial: string) {
+        const clean = initial.replace(/[^0-9a-fA-F]/g, "").toLowerCase();
+        this.clean = clean;
+    }
+
+    #format(groups: number, sep: string): string {
+        const paddedMac = this.clean.padEnd(12, "0");
+        const pairs = [];
+        for (let i = 0; i < 12; i += groups) {
+            pairs.push(paddedMac.slice(i, i + groups));
+        }
+        return pairs.join(sep);
+    }
+
+    public withColons(): string {
+        return this.#format(2, ":");
+    }
+
+    public withDots(): string {
+        return this.#format(4, ".");
+    }
+    public withDashes(): string {
+        return this.#format(2, "-");
+    }
+}
