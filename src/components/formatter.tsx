@@ -59,7 +59,7 @@ const FormattedInput = (props: FormattedInputProps) => {
                     <Icon
                         w="1em"
                         h="1em"
-                        fill="green"
+                        fill="text-green"
                         position="absolute"
                         opacity={isCopied ? "1" : "0"}
                         transition="opacity ease 150ms"

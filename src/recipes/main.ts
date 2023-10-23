@@ -11,7 +11,7 @@ export const main = defineRecipe({
         px: { base: 2, sm: 8 },
         pt: { base: 20, md: 16 },
         pb: 24,
-        justifyContent: { base: "flex-start", md: "center" },
+        justifyContent: "flex-start",
         height: { base: "calc(100vh - var(--sizes-20))", md: "calc(100vh - var(--sizes-24))" },
     },
 });

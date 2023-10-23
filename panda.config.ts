@@ -42,30 +42,74 @@ export default defineConfig({
                 main,
                 spinner,
             },
+            layerStyles: {
+                badge: {
+                    value: {
+                        _light: {
+                            backgroundColor: "slate.100",
+                            color: "slate.600",
+                            borderColor: "slate.200",
+                        },
+                        _dark: {
+                            backgroundColor: "slate.900",
+                            color: "slate.300",
+                            borderColor: "slate.800",
+                        },
+                    },
+                },
+                "badge-critical": {
+                    value: {
+                        _light: {
+                            backgroundColor: "rose.600",
+                            color: "rose.50",
+                            borderColor: "rose.700",
+                        },
+                        _dark: {
+                            backgroundColor: "rose.500",
+                            color: "rose.950",
+                            borderColor: "rose.400",
+                        },
+                    },
+                },
+                "badge-warning": {
+                    value: {
+                        _light: {
+                            backgroundColor: "yellow.300",
+                            color: "yellow.950",
+                            borderColor: "yellow.400",
+                        },
+                        _dark: {
+                            backgroundColor: "yellow.800",
+                            color: "yellow.50",
+                            borderColor: "yellow.700",
+                        },
+                    },
+                },
+            },
             semanticTokens: {
                 colors: {
-                    green: {
-                        value: {
-                            _light: "{colors.emerald.600}",
-                            _dark: "{colors.emerald.300}",
-                        },
-                    },
-                    red: {
-                        value: {
-                            _light: "{colors.rose.600}",
-                            _dark: "{colors.rose.300}",
-                        },
-                    },
-                    slate: {
+                    "text-slate": {
                         value: {
                             _light: "{colors.slate.600}",
                             _dark: "{colors.slate.400}",
                         },
                     },
-                    "badge.accent": {
+                    "text-green": {
                         value: {
-                            _light: "{colors.slate.100}",
-                            _dark: "{colors.slate.900}",
+                            _light: "{colors.emerald.600}",
+                            _dark: "{colors.emerald.300}",
+                        },
+                    },
+                    "text-red": {
+                        value: {
+                            _light: "{colors.rose.600}",
+                            _dark: "{colors.rose.300}",
+                        },
+                    },
+                    "text-yellow": {
+                        value: {
+                            _light: "{colors.yellow.700}",
+                            _dark: "{colors.yellow.600}",
                         },
                     },
                     "kbd-bg": {
@@ -84,36 +128,6 @@ export default defineConfig({
                         value: {
                             _light: "{colors.slate.200}",
                             _dark: "{colors.slate.800}",
-                        },
-                    },
-                    "alert-bg": {
-                        value: {
-                            _light: "{colors.rose.600}",
-                            _dark: "{colors.rose.500}",
-                        },
-                    },
-                    "alert-fg": {
-                        value: {
-                            _light: "{colors.rose.50}",
-                            _dark: "{colors.rose.950}",
-                        },
-                    },
-                    "alert-border": {
-                        value: {
-                            _light: "{colors.rose.700}",
-                            _dark: "{colors.rose.400}",
-                        },
-                    },
-                    "alert-accent": {
-                        value: {
-                            _light: "{colors.rose.200}",
-                            _dark: "{colors.rose.950}",
-                        },
-                    },
-                    badge: {
-                        value: {
-                            _light: "slate.100",
-                            _dark: "slate.900",
                         },
                     },
                 },

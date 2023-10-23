@@ -17,16 +17,14 @@ export const ExpectedError = (props: ExpectedErrorProps) => {
     const { title, message, hideBackButton, isServerError } = props;
     return (
         <Alert
-            bg="alert-bg"
-            color="alert-fg"
+            layerStyle="badge-critical"
             height="fit-content"
-            borderColor="alert-border"
             width={{ base: "100%", md: "xl" }}
             {...(isServerError ? { "data-server-error": "" } : {})}
         >
             <Stack gap="4" direction={{ base: "column", md: "row" }} justifyContent="space-between">
                 <Stack gap="4" direction={{ base: "column", md: "row" }}>
-                    <Icon fill="alert-fg">
+                    <Icon fill="currentColor">
                         <WarningIcon />
                     </Icon>
                     <Stack gap="4">
@@ -40,12 +38,12 @@ export const ExpectedError = (props: ExpectedErrorProps) => {
                     <IconButtonLink
                         href="/"
                         variant="link"
-                        color="alert-fg"
                         alignSelf="center"
                         aria-label="Go Back"
-                        _hover={{ color: "alert-accent" }}
+                        transition="ease-in-out 0.1s opacity"
+                        _hover={{ opacity: 0.9 }}
                     >
-                        <Icon fill="alert-fg" size="xl">
+                        <Icon fill="currentColor" size="xl">
                             <LeftArrowFill />
                         </Icon>
                     </IconButtonLink>

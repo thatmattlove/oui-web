@@ -10,6 +10,19 @@ export interface SingleQueryResult {
     prefixRangeStart: string;
     prefixRangeStop: string;
     oui: string;
+    notFound: boolean;
+    error: string;
+}
+
+export interface NotFoundResult extends SingleQueryResult {
+    notFound: true;
+    org: "";
+    prefix: "";
+    registry: "";
+    registryUrl: "";
+    prefixRange: "";
+    prefixRangeStart: "";
+    prefixRangeStop: "";
 }
 
 export interface QueryError {
@@ -44,4 +57,12 @@ export function isMultipleResult(obj: unknown): obj is MultipleQueryResults {
 
 export function isQueryError(res: unknown): res is QueryError {
     return !Array.isArray(res) && typeof res === "object" && res !== null && "error" in res;
+}
+
+export function isNotFound(res: SingleQueryResult): res is NotFoundResult {
+    return res.notFound === true && res.error === "" && res.registry === "";
+}
+
+export function isError(res: SingleQueryResult): res is NotFoundResult {
+    return res.notFound === true && res.error.length > 0 && res.registry === "";
 }

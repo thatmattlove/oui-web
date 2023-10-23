@@ -25,9 +25,9 @@ const MACRange = (
 ) => (
     <styled.span>
         <styled.span>{props.oui}</styled.span>:
-        <styled.span color="green">{props.prefixRangeStart}</styled.span>-
+        <styled.span color="text-green">{props.prefixRangeStart}</styled.span>-
         <styled.span>{props.oui}</styled.span>:
-        <styled.span color="red">{props.prefixRangeStop}</styled.span>
+        <styled.span color="text-red">{props.prefixRangeStop}</styled.span>
     </styled.span>
 );
 
@@ -37,9 +37,11 @@ export const ResultsSingle = (props: ResultsProps) => {
     return (
         <Stack alignItems="center">
             <styled.div display="flex">
-                <Badge fontFamily="mono" bg="slate.100" _dark={{ bg: "slate.900" }}>
-                    {searchDisplay}
-                </Badge>
+                {searchDisplay && (
+                    <Badge fontFamily="mono" layerStyle="badge">
+                        {searchDisplay}
+                    </Badge>
+                )}
             </styled.div>
             <TableContainer>
                 <Table {...rest}>
@@ -54,7 +56,7 @@ export const ResultsSingle = (props: ResultsProps) => {
                     <TableBody>
                         {results.map((result) => (
                             <TableRow key={result.prefix}>
-                                <TableCell color="slate" fontWeight="bold" textWrap="nowrap">
+                                <TableCell color="text-slate" fontWeight="bold" textWrap="nowrap">
                                     {result.org}
                                 </TableCell>
                                 <TableCell fontFamily="mono">{result.prefix}</TableCell>

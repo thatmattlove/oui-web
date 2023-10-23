@@ -10,7 +10,13 @@ import { InfoCard, InfoCardTitle } from "~/elements/info-card";
 export default function Home() {
     preload();
     return (
-        <VStack width="100%" alignItems="center" gap={{ base: 8, md: 24 }}>
+        <VStack
+            width="100%"
+            alignItems="center"
+            justifyContent="center"
+            height={{ md: "100%" }}
+            gap={{ base: 8, md: 24 }}
+        >
             <Form action={query} />
             <Stack direction={{ base: "column", md: "row" }} width="100%" justify="center">
                 <InfoCard

@@ -1,7 +1,7 @@
 "use client";
 import { useRef } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
-import { Stack } from "~/styled-system/jsx";
+import { Stack, VStack } from "~/styled-system/jsx";
 import {
     Card,
     CardContent,
@@ -35,10 +35,12 @@ export const Form = (props: FormProps) => {
     const label = isSupported ? "Paste From Clipboard" : "Clipboard Inaccessible";
     return (
         <Card
+            mt={{ md: "auto" }}
+            mb={{ md: "auto" }}
             width={{ base: "100%", md: "sm" }}
             height={{ base: "xs", md: "unset" }}
             borderWidth={{ base: "0 ", md: "1px" }}
-            justifyContent={{ base: "space-evenly", md: "unset" }}
+            justifyContent={{ base: "flex-start", md: "unset" }}
             {...rest}
         >
             <form action={action} autoComplete="off" ref={formRef}>

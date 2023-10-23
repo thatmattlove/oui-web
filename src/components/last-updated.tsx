@@ -63,7 +63,7 @@ const Time = (props: LastUpdatedResponse) => {
             </TooltipTrigger>
             <Portal>
                 <TooltipPositioner>
-                    <TooltipContent bg="kbd-bg" color="kbd-fg">
+                    <TooltipContent layerStyle="badge">
                         <TooltipArrow>
                             <TooltipArrowTip />
                         </TooltipArrow>
@@ -87,7 +87,7 @@ export const LastUpdated = (props: VstackProps) => {
     return (
         <VStack gap="0.5" alignItems={{ base: "flex-start", md: "flex-end" }} {...props}>
             {typeof error !== "undefined" && (
-                <styled.span fontSize="xs" color="red">
+                <styled.span fontSize="xs" color="text-red">
                     Failed to Retrieve Last Updated Time
                 </styled.span>
             )}
