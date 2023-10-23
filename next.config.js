@@ -13,6 +13,26 @@ function getBaseURL() {
     }
 }
 
+function getHeaders() {
+    if (process.env.VERCEL_ENV === "production") {
+        const headers = async () => [
+            {
+                source: "/",
+                headers: [
+                    {
+                        key: "cache-control",
+                        value: "max-age=9, s-maxage=1, stale-while-revalidate=59",
+                    },
+                    { key: "cdn-cache-control", value: "s-maxage=60" },
+                    { key: "vercel-cdn-cache-control", value: "s-maxage=3600" },
+                ],
+            },
+        ];
+        return headers;
+    }
+    return undefined;
+}
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     experimental: {
@@ -22,16 +42,7 @@ const nextConfig = {
     env: {
         NEXT_PUBLIC_BASE_URL: getBaseURL(),
     },
-    headers: async () => [
-        {
-            source: "/",
-            headers: [
-                { key: "cache-control", value: "max-age=9, s-maxage=1, stale-while-revalidate=59" },
-                { key: "cdn-cache-control", value: "s-maxage=60" },
-                { key: "vercel-cdn-cache-control", value: "s-maxage=3600" },
-            ],
-        },
-    ],
+    headers: getHeaders(),
 };
 
 module.exports = withBundleAnalyzer(nextConfig);

@@ -30,7 +30,8 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 func handler() http.HandlerFunc {
 	logger := log.Output(zerolog.ConsoleWriter{Out: os.Stderr, TimeFormat: time.RFC3339Nano})
 	logger.Level(zerolog.DebugLevel)
-	if os.Getenv("VERCEL_ENV") == "production" {
+	isProd := os.Getenv("VERCEL_ENV") == "production"
+	if isProd {
 		logger = zerolog.New(os.Stderr).With().Timestamp().Logger()
 		logger.Level(zerolog.InfoLevel)
 	}
@@ -57,10 +58,13 @@ func handler() http.HandlerFunc {
 	app.Use(cors.New(cors.Config{
 		AllowOrigins: "*",
 	}))
-	app.Use(cache.New(cache.Config{
-		Expiration:   15 * time.Minute,
-		CacheControl: true,
-	}))
+
+	if isProd {
+		app.Use(cache.New(cache.Config{
+			Expiration:   15 * time.Minute,
+			CacheControl: true,
+		}))
+	}
 
 	env, err := lib.LoadEnv()
 	if err != nil {
