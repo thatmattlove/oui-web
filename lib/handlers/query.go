@@ -2,6 +2,7 @@
 package handlers
 
 import (
+	"errors"
 	"fmt"
 	"sort"
 	"strings"
@@ -24,15 +25,19 @@ type QueryResponse struct {
 	PrefixRangeStart string `json:"prefixRangeStart"`
 	PrefixRangeStop  string `json:"prefixRangeStop"`
 	OUI              string `json:"oui"`
+	NotFound         bool   `json:"notFound"`
+	Error            string `json:"error"`
 }
 
 func buildSingleResponse(matches []*oui.VendorDef) ([]QueryResponse, error) {
 	results := make([]QueryResponse, 0, len(matches))
-	for _, match := range matches {
-		match := match
+	errs := make([]error, 0, len(matches))
+	for i := 0; i < len(matches); i++ {
+		match := matches[i]
 		_, prefix, err := macaddr.ParseMACPrefix(match.Prefix)
 		if err != nil {
-			return nil, err
+			errs = append(errs, err)
+			continue
 		}
 		firstMac := prefix.First()
 		lastMac := prefix.Last()
@@ -54,7 +59,8 @@ func buildSingleResponse(matches []*oui.VendorDef) ([]QueryResponse, error) {
 		}
 		results = append(results, result)
 	}
-	return results, nil
+	err := errors.Join(errs...)
+	return results, err
 }
 
 func getData(ctx *fiber.Ctx) string {
@@ -116,14 +122,37 @@ func Query(ctx *fiber.Ctx) error {
 		return ctx.Status(200).JSON(results)
 	}
 	results := fiber.Map{}
-	for _, q := range queries {
+	for i := 0; i < len(queries); i++ {
+		q := queries[i]
 		matches, err := oui.OUI.Find(q)
 		if err != nil {
-			log.Err(err).Msgf("failed to query for MAC '%s'", query)
-			return err
+			log.Err(err).Msgf("failed to query for MAC '%s'", q)
+			result := QueryResponse{NotFound: true, Error: err.Error()}
+			key := q
+			mac, err := macaddr.ParseMACAddress(q)
+			if err == nil {
+				key = mac.String()
+			}
+			results[key] = result
+			continue
+		}
+		if len(matches) == 0 {
+			log.Warn().Str("query", q).Msg("no matches found")
+			key := q
+			errMsg := ""
+			mac, err := macaddr.ParseMACAddress(q)
+			if err != nil {
+				errMsg = err.Error()
+			} else {
+				key = mac.String()
+			}
+			result := QueryResponse{NotFound: true, Error: errMsg}
+			results[key] = result
+			continue
 		}
 		singleMatches, err := buildSingleResponse(matches)
 		if err != nil {
+			log.Err(err).Str("query", q).Msg("failed to build response")
 			return err
 		}
 		sort.Slice(singleMatches, func(a, b int) bool {
