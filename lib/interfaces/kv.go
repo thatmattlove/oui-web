@@ -2,7 +2,6 @@ package interfaces
 
 import (
 	"context"
-	"crypto/tls"
 	"fmt"
 	"time"
 
@@ -54,7 +53,6 @@ func NewKV(ctx *fiber.Ctx, kvURL string) (*KV, error) {
 	if err != nil {
 		return nil, err
 	}
-	opts.TLSConfig = &tls.Config{}
 	client := redis.NewClient(opts)
 	if client == nil {
 		return nil, fmt.Errorf("failed to initialize Redis client")
