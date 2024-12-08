@@ -3,11 +3,11 @@ package lib
 import (
 	"os"
 
-	"github.com/stellaraf/go-utils/environment"
+	"go.stellar.af/go-utils/environment"
 )
 
 type Env struct {
-	RedisURL    string `env:"UPSTASH_URL"`
+	RedisURL    string `env:"KV_REDISCLOUD_REDIS_URL"`
 	PopulateKey string `env:"POPULATE_KEY"`
 }
 

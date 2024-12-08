@@ -6,10 +6,10 @@ require (
 	github.com/gofiber/fiber/v2 v2.49.2
 	github.com/redis/go-redis/v9 v9.2.1
 	github.com/rs/zerolog v1.30.0
-	github.com/stellaraf/go-utils v0.1.2
 	github.com/stretchr/testify v1.8.4
 	github.com/thatmattlove/go-macaddr v0.1.0
 	github.com/thatmattlove/oui/v2 v2.0.3
+	go.stellar.af/go-utils v0.2.5
 )
 
 require (
