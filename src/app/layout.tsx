@@ -23,7 +23,7 @@ const firaCode = Fira_Code({ subsets: ["latin"], display: "swap", variable: "--f
 export const metadata: Metadata = {
     title: "oui :: MAC Address Search",
     description: "The easy to remember MAC Address OUI lookup tool",
-    metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL!),
+    metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL ?? "https://oui.is"),
     applicationName: "oui",
     robots: process.env.NODE_ENV === "production" ? "index, follow" : "noindex, nofollow",
     openGraph: {
